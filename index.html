@@ -21,6 +21,10 @@ header{padding:32px 0 20px;display:grid;gap:14px}
 .brand{display:flex;gap:10px;align-items:baseline;font-size:13px;color:var(--ink2)}
 .brand b{font-weight:500;color:var(--ink)}.brand span{border-left:1px solid var(--rule);padding-left:10px}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.me-w{display:flex;align-items:center;gap:14px}
+.me-t,.me-l,.brand{white-space:nowrap}
+@media (max-width:480px){.brand span{display:none}.me-w{gap:10px}.av{width:58px;height:58px}.me-n{font-size:22px}.me-t{font-size:19px}.me-l{font-size:12px}}
+.av{width:clamp(64px,11vw,92px);height:clamp(64px,11vw,92px);border-radius:50%;object-fit:cover;border:1px solid var(--rule);background:var(--img);flex:none}
 .me{display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right}
 .me-n{font-family:var(--serif);font-size:clamp(24px,4vw,30px);line-height:1.2}
 .me-t{font-family:var(--mono);font-size:clamp(20px,3.4vw,26px);color:var(--accentText);text-decoration:none;font-variant-numeric:tabular-nums}
@@ -63,7 +67,7 @@ footer{border-top:1px solid var(--rule);padding:22px 0 36px;display:flex;flex-wr
 <body>
 <header>
 <div class="top"><div class="brand"><b>利寶不動產</b><span>台中出租物件</span></div>
-<div class="me"><span class="me-n">王茂康</span><a class="me-t" href="tel:0921254793">0921-254-793</a><a class="me-l" href="https://line.me/ti/p/~markwang0516" target="_blank" rel="noopener">LINE：markwang0516</a></div></div>
+<div class="me-w"><img class="av" src="avatar.jpg" width="320" height="320" alt="王茂康"><div class="me"><span class="me-n">王茂康</span><a class="me-t" href="tel:0921254793">0921-254-793</a><a class="me-l" href="https://line.me/ti/p/~markwang0516" target="_blank" rel="noopener">LINE：markwang0516</a></div></div></div>
 <h1>台中出租物件</h1>
 <p class="lede">每一件都有 3D 外觀、室內照片與生活圈地圖，點進去就能看完整介紹。想看屋直接加 LINE 約時間。</p>
 </header>
