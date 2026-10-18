@@ -18,7 +18,7 @@ for d in sorted(os.listdir(ROOT)):
     city_dist, _, area = loc.partition('｜')
     stats = re.findall(r'<div class="stat[^"]*"><b>(.*?)</b><span>(.*?)</span>', s)
     dep = strip(g(r'<p class="dep">(.*?)</p>'))
-    date = subprocess.run(['git', 'log', '--diff-filter=A', '--format=%cs', '--', f'{d}/index.html'], cwd=ROOT, capture_output=True, text=True).stdout.strip().split('\n')[-1] or ''
+    date = subprocess.run(['git', 'log', '--diff-filter=A', '--format=%ct', '--', f'{d}/index.html'], cwd=ROOT, capture_output=True, text=True).stdout.strip().split('\n')[-1] or ''
     items.append({
         'slug': d, 'name': name, 'district': city_dist.replace('台中市', ''), 'area': area,
         'rent': int(g(r'<div class="price">.*?<b>(.*?)</b>').replace(',', '') or 0),
