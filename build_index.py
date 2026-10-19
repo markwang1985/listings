@@ -11,6 +11,8 @@ for d in sorted(os.listdir(ROOT)):
     if not os.path.isfile(p):
         continue
     s = open(p, encoding='utf-8').read()
+    if 'data-rented' in s:  # 已出租：保留頁面但不列在首頁
+        continue
     g = lambda pat: (re.search(pat, s, re.S) or [None, ''])[1]
     title = g(r'<title>(.*?)</title>')
     name = re.sub(r'^出租｜|・月租.*$', '', title)
