@@ -1,0 +1,854 @@
+<!-- data-rented：此資料夾為社區查詢網站，不是出租物件，build_index.py 會略過、不列入物件首頁 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>台中社區查詢</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="臺中市社區資料庫：依建商、行政區、房型、坪數、單價、屋齡查詢，含 3D 地圖、格局圖、建照與使照資訊、實價行情、周邊機能與安全風險。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<style>
+/* 版面：左側篩選＋結果清單，右側 3D 地圖；社區詳細頁以全螢幕面板開啟 */
+:root{
+  --paper:#F1F4F0; --surface:#FFFFFF; --sunk:#E7ECE7; --ink:#17221E; --muted:#5B6862; --line:#D3DBD5;
+  --accent:#1C684E; --accent-ink:#FFFFFF; --accent-soft:#DCEBE3; --price:#9E531B;
+  --ok:#2E7A4D; --warn:#A8701A; --danger:#B03A30; --ok-soft:#E0EFE5; --warn-soft:#F6EAD3; --danger-soft:#F6DEDB;
+  --shadow:0 10px 30px rgba(20,40,32,.12);
+  --f-display:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0E1412; --surface:#151D1A; --sunk:#1B2521; --ink:#E3EBE6; --muted:#92A199; --line:#2A3631;
+  --accent:#5BC497; --accent-ink:#0B1712; --accent-soft:#1A3328; --price:#E59C61;
+  --ok:#62C48A; --warn:#E0AE55; --danger:#EE7F74; --ok-soft:#183024; --warn-soft:#33291A; --danger-soft:#3A1F1C;
+  --shadow:0 10px 30px rgba(0,0,0,.45); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0E1412; --surface:#151D1A; --sunk:#1B2521; --ink:#E3EBE6; --muted:#92A199; --line:#2A3631;
+  --accent:#5BC497; --accent-ink:#0B1712; --accent-soft:#1A3328; --price:#E59C61;
+  --ok:#62C48A; --warn:#E0AE55; --danger:#EE7F74; --ok-soft:#183024; --warn-soft:#33291A; --danger-soft:#3A1F1C;
+  --shadow:0 10px 30px rgba(0,0,0,.45); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.55;overflow:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+h1,h2,h3{text-wrap:balance;margin:0}
+
+/* ===== 頂欄 ===== */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:16px;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex:none}
+.mark{width:34px;height:34px;border-radius:6px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:900 19px/1 var(--f-display)}
+.brand b{font:900 19px/1.1 var(--f-display);letter-spacing:.04em;display:block}
+.brand small{color:var(--muted);font-size:11.5px;letter-spacing:.06em}
+.search{flex:1;max-width:520px;position:relative}
+.search input{width:100%;height:40px;border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:0 12px 0 36px}
+.search svg{position:absolute;left:11px;top:11px;color:var(--muted)}
+.top .spacer{flex:1}
+.pillbtn{height:36px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:0 14px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.pillbtn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.pillbtn .cnt{font-family:var(--f-num);background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:0 7px;font-size:12px}
+.pillbtn.primary .cnt{background:var(--accent-ink);color:var(--accent)}
+.sample-note{font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:4px 10px;white-space:nowrap}
+
+/* ===== 主版面 ===== */
+.app{display:grid;grid-template-columns:minmax(360px,440px) 1fr;height:calc(100% - 61px)}
+.side{overflow-y:auto;border-right:1px solid var(--line);background:var(--paper)}
+.filters{padding:16px max(16px,env(safe-area-inset-left,0px)) 6px;display:grid;gap:14px;border-bottom:1px solid var(--line);background:var(--surface)}
+.fgroup{display:grid;gap:7px}
+.flabel{font-size:12px;color:var(--muted);letter-spacing:.08em;display:flex;justify-content:space-between;align-items:baseline}
+.flabel output{font-family:var(--f-num);color:var(--ink);letter-spacing:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 11px;font-size:13px;line-height:1.4}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip .c{font-family:var(--f-num);font-size:11px;opacity:.7;margin-left:3px}
+select.sel{height:36px;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:0 10px;width:100%}
+.range2{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.range2 input{height:36px;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:0 10px;width:100%;min-width:0;font-family:var(--f-num)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+details.more summary{cursor:pointer;color:var(--accent);font-weight:500;font-size:13px;list-style:none;padding:2px 0}
+details.more summary::-webkit-details-marker{display:none}
+details.more[open] summary{margin-bottom:10px}
+details.more .inner{display:grid;gap:14px}
+.ftools{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:10px}
+.linkbtn{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:4px 0;font-size:13px}
+
+.reshead{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px max(16px,env(safe-area-inset-left,0px)) 8px}
+.reshead b{font-family:var(--f-num);font-size:18px}
+.reshead select{height:32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:0 8px;font-size:13px}
+.results{display:grid;gap:10px;padding:0 max(16px,env(safe-area-inset-left,0px)) 24px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:9px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.card:hover,.card.hot{border-color:var(--accent);box-shadow:var(--shadow)}
+.card-h{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.card-h h3{font:700 18px/1.3 var(--f-display);letter-spacing:.02em}
+.card .meta{color:var(--muted);font-size:12.5px}
+.price{text-align:right;flex:none}
+.price .v{font-family:var(--f-num);font-weight:600;color:var(--price);font-size:17px;white-space:nowrap}
+.price .u{font-size:11px;color:var(--muted)}
+.badges{display:flex;flex-wrap:wrap;gap:5px}
+.badge{font-size:11.5px;border-radius:4px;padding:1px 7px;background:var(--sunk);color:var(--muted)}
+.badge.st-預售{background:var(--warn-soft);color:var(--warn)}
+.badge.st-新成屋{background:var(--accent-soft);color:var(--accent)}
+.badge.seis{background:var(--ok-soft);color:var(--ok)}
+.units{display:flex;flex-wrap:wrap;gap:5px}
+.u-tag{font-size:12px;border:1px dashed var(--line);border-radius:5px;padding:1px 7px;color:var(--muted)}
+.u-tag.m{border-style:solid;border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.card-f{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:9px}
+.cmp{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);cursor:pointer}
+.cmp input{accent-color:var(--accent);width:16px;height:16px}
+.card-f .go{font-size:13px;color:var(--accent);font-weight:500}
+.empty{padding:40px 20px;text-align:center;color:var(--muted);display:grid;gap:10px;justify-items:center}
+
+/* ===== 地圖 ===== */
+.mapwrap{position:relative;min-width:0;background:var(--sunk)}
+#map,#fallback{position:absolute;inset:0}
+.mapctl{position:absolute;top:12px;right:max(12px,env(safe-area-inset-right,0px));display:flex;gap:6px;z-index:2}
+.mapctl button{height:34px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:0 12px;font-size:13px;box-shadow:var(--shadow)}
+.mapctl button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.mapnote{position:absolute;left:12px;bottom:12px;right:12px;max-width:440px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--muted);z-index:2;box-shadow:var(--shadow)}
+.mk{transform:translateY(-4px);background:var(--surface);color:var(--ink);border:1.5px solid var(--accent);border-radius:6px;padding:2px 7px;font:600 12px/1.3 var(--f-num);white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer;position:relative}
+.mk::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-5px;border:5px solid transparent;border-top-color:var(--accent);border-bottom:0}
+.mk.hot{background:var(--accent);color:var(--accent-ink)}
+.mk small{font-family:var(--f-body);font-weight:500;margin-right:4px}
+#fallback svg{width:100%;height:100%;display:block}
+#fallback .pin{cursor:pointer}
+.mobile-switch{display:none}
+
+/* ===== 詳細頁 ===== */
+.detail{position:fixed;inset:0;z-index:20;background:var(--paper);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+.d-head{background:var(--surface);border-bottom:1px solid var(--line);padding-block:14px 0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.d-headin{max-width:1180px;margin:0 auto;display:grid;gap:10px}
+.d-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.d-title h2{font:900 clamp(24px,3.4vw,34px)/1.2 var(--f-display);letter-spacing:.03em}
+.d-title p{margin:4px 0 0;color:var(--muted)}
+.d-actions{display:flex;flex-wrap:wrap;gap:6px}
+.back{border:0;background:none;color:var(--muted);padding:0;display:inline-flex;gap:6px;align-items:center;font-size:13px}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin:0 -4px}
+.tab{border:0;background:none;padding:10px 12px;color:var(--muted);border-bottom:2.5px solid transparent;white-space:nowrap;font-weight:500}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.d-body{flex:1;overflow-y:auto;padding-block:20px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.d-in{max-width:1180px;margin:0 auto;display:grid;gap:18px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:12px;min-width:0}
+.panel h3{font:700 16px/1.3 var(--f-body);display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.panel h3 small{font-weight:400;color:var(--muted);font-size:12px}
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0;margin:0;border-top:1px solid var(--line)}
+.facts div{padding:9px 0 9px;border-bottom:1px solid var(--line);padding-right:10px;min-width:0}
+.facts dt{font-size:11.5px;color:var(--muted);letter-spacing:.06em}
+.facts dd{margin:2px 0 0;font-weight:500;overflow-wrap:anywhere}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.kpi span{font-size:11.5px;color:var(--muted);letter-spacing:.06em}
+.kpi b{display:block;font:600 21px/1.3 var(--f-num);margin-top:2px}
+.kpi b.p{color:var(--price)}
+.kpi i{font-style:normal;font-size:12px;color:var(--muted)}
+.hl{display:flex;flex-wrap:wrap;gap:6px}
+.hl span{background:var(--accent-soft);color:var(--accent);border-radius:5px;padding:3px 9px;font-size:13px}
+#mass{width:100%;aspect-ratio:4/3;max-width:100%;border-radius:8px;background:var(--sunk);touch-action:none;display:block;cursor:grab}
+.towerlist{display:grid;gap:4px;font-size:13px}
+.towerlist div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dotted var(--line);padding:3px 0}
+.hint{font-size:12px;color:var(--muted)}
+.unitpick{display:flex;flex-wrap:wrap;gap:6px}
+.unitpick button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;text-align:left;line-height:1.35}
+.unitpick button b{display:block;font-size:13.5px}
+.unitpick button span{font:12px var(--f-num);color:var(--muted)}
+.unitpick button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.plan{background:var(--sunk);border-radius:8px;padding:12px;overflow-x:auto}
+.plan svg{display:block;width:100%;height:auto;min-width:320px}
+.plan img{display:block;width:100%;border-radius:4px}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{text-align:left;font-weight:500;color:var(--muted);font-size:12px;letter-spacing:.04em;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.t td{padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.t td.r,table.t th.r{text-align:right}
+.tscroll{overflow-x:auto}
+.chart svg{width:100%;height:auto;display:block}
+.amen{display:flex;flex-wrap:wrap;gap:6px}
+.amen span{border:1px solid var(--line);border-radius:6px;padding:4px 10px;font-size:13px}
+.near{display:grid;gap:0}
+.near .row{display:grid;grid-template-columns:64px 1fr auto auto;gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line)}
+.near .k{font-size:11.5px;color:var(--muted)}
+.near .d{font-family:var(--f-num);font-size:13px}
+.near .w{font-size:12px;color:var(--muted);min-width:66px;text-align:right}
+.gframe{width:100%;aspect-ratio:4/3;border:0;border-radius:8px;background:var(--sunk);display:block}
+.linkrow{display:flex;flex-wrap:wrap;gap:8px}
+a.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:7px 12px;color:var(--ink);text-decoration:none;background:var(--surface);font-size:13px}
+a.btn:hover{border-color:var(--accent);color:var(--accent)}
+.risk{display:grid;grid-template-columns:120px 1fr auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.risk .lv{font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;white-space:nowrap}
+.lv.ok{background:var(--ok-soft);color:var(--ok)} .lv.warn{background:var(--warn-soft);color:var(--warn)} .lv.bad{background:var(--danger-soft);color:var(--danger)}
+.risk .rk{font-weight:500}
+.risk .rv{color:var(--muted);font-size:13px}
+.checklist{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.checklist li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px}
+.checklist input{accent-color:var(--accent);margin-top:4px}
+.docs{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.doc{border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:8px;background:var(--surface);align-content:start}
+.doc .ico{width:38px;height:46px;border:1.5px solid var(--muted);border-radius:3px;position:relative;display:grid;place-items:center;font:700 10px var(--f-body);color:var(--muted)}
+.doc .ico::after{content:"";position:absolute;top:-1.5px;right:-1.5px;width:11px;height:11px;background:var(--surface);border-left:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted)}
+.doc b{font-size:14px}
+.doc .st{font-size:12px;color:var(--muted)}
+.doc .st.on{color:var(--ok)}
+.permit{font-family:var(--f-num);font-size:13px}
+.disclaim{font-size:12px;color:var(--muted);border-left:3px solid var(--line);padding-left:10px}
+
+/* ===== 比較 ===== */
+.cmpbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;background:var(--ink);color:var(--paper);border-radius:999px;padding:6px 6px 6px 16px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);max-width:calc(100% - 32px)}
+.cmpbar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
+.cmpbar button{border:0;border-radius:999px;padding:7px 14px;background:var(--accent);color:var(--accent-ink);font-weight:500;white-space:nowrap}
+.cmpbar .x{background:transparent;color:var(--paper);padding:7px 8px}
+.ctable td:first-child,.ctable th:first-child{position:sticky;left:0;background:var(--surface);color:var(--muted);font-size:12px}
+.ctable td{white-space:normal;min-width:170px;vertical-align:top}
+.ctable th{font:700 15px var(--f-display);color:var(--ink);white-space:normal}
+/* ===== 廣告 ===== */
+.ad{border:1px dashed var(--line);border-radius:10px;background:var(--surface);padding:10px;display:grid;gap:4px;min-width:0;overflow:hidden}
+.ad .ad-l{font-size:10.5px;letter-spacing:.12em;color:var(--muted)}
+.ad.ph{min-height:96px;place-items:center;text-align:center;color:var(--muted);font-size:12.5px;background:repeating-linear-gradient(135deg,var(--surface) 0 10px,var(--sunk) 10px 20px)}
+.ad.house a{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;color:var(--ink);text-decoration:none}
+.ad.house .hb{width:56px;height:56px;border-radius:8px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:900 20px var(--f-display)}
+.ad.house b{font-size:15px;display:block}
+.ad.house span{font-size:12.5px;color:var(--muted)}
+.ad ins{display:block;min-height:90px}
+.card.spon{border-color:var(--price)}
+.badge.spon{background:var(--price);color:var(--surface)}
+.toast{position:fixed;left:50%;top:calc(70px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:8px 16px;border-radius:8px;z-index:40;font-size:13px}
+
+@media (max-width:1100px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid2{grid-template-columns:minmax(0,1fr)}
+  .sample-note{display:none}
+}
+@media (max-width:760px){
+  body{overflow:auto}
+  .top{flex-wrap:wrap;gap:10px}
+  .search{order:3;flex-basis:100%;max-width:none}
+  .brand small{display:none}
+  .app{display:block;height:auto}
+  .side{overflow:visible;border:0}
+  .mapwrap{display:none}
+  body.show-map .mapwrap{display:block;position:fixed;inset:0;z-index:12;top:env(safe-area-inset-top,0px)}
+  body.show-map .side{display:none}
+  .mobile-switch{display:flex;position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:14}
+  body.has-cmp .mobile-switch{bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+  .risk{grid-template-columns:1fr auto}
+  .risk .rv{grid-column:1/-1;order:3}
+  .near .row{grid-template-columns:52px 1fr auto}
+  .near .w{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="top">
+  <div class="brand"><div class="mark" aria-hidden="true">中</div><div><b>台中社區查詢</b><small>建商・房型・坪數・行情・建照</small></div></div>
+  <label class="search"><span hidden>搜尋社區</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="輸入社區名、建商、路名…" autocomplete="off">
+  </label>
+  <span class="spacer"></span>
+  <span class="sample-note" id="sampleNote">示範資料</span>
+  <button class="pillbtn" id="openCmp" type="button">比較 <span class="cnt" id="cmpCnt">0</span></button>
+</header>
+
+<main class="app">
+  <aside class="side">
+    <section class="filters" aria-label="篩選條件">
+      <div class="fgroup"><div class="flabel">建商</div><select class="sel" id="fBuilder"></select></div>
+      <div class="fgroup"><div class="flabel">行政區</div><div class="chips" id="fDist"></div></div>
+      <div class="fgroup"><div class="flabel">房型</div><div class="chips" id="fRooms"></div></div>
+      <div class="fgroup"><div class="flabel">權狀坪數 <span>坪</span></div>
+        <div class="range2"><input id="sMin" type="number" inputmode="numeric" min="0" placeholder="不限"><span>—</span><input id="sMax" type="number" inputmode="numeric" min="0" placeholder="不限"></div>
+        <div class="chips" id="fSizePreset"></div>
+      </div>
+      <div class="fgroup"><div class="flabel">單價上限 <output id="pOut">不限</output></div>
+        <input id="fPrice" type="range" min="20" max="130" step="5" value="130" aria-label="單價上限（萬元／坪）"></div>
+      <div class="fgroup"><div class="flabel">屋齡</div><div class="chips" id="fAge"></div></div>
+      <details class="more" id="moreBox"><summary>更多條件：型態、車位、耐震、捷運、風險 ▾</summary>
+        <div class="inner">
+          <div class="fgroup"><div class="flabel">建物型態</div><div class="chips" id="fType"></div></div>
+          <div class="fgroup"><div class="flabel">車位</div><div class="chips" id="fPark"></div></div>
+          <div class="fgroup"><div class="flabel">結構與耐震</div><div class="chips" id="fSeis"></div></div>
+          <div class="fgroup"><div class="flabel">生活與安全</div><div class="chips" id="fLife"></div></div>
+        </div>
+      </details>
+      <div class="ftools"><span class="hint" id="activeHint"></span><button class="linkbtn" id="reset" type="button">清除全部條件</button></div>
+    </section>
+    <div class="reshead"><div><b id="resCount">0</b> 個社區符合</div>
+      <select id="sort" aria-label="排序">
+        <option value="price-asc">單價 低→高</option><option value="price-desc">單價 高→低</option>
+        <option value="new">屋齡 新→舊</option><option value="hh">總戶數 多→少</option>
+      </select></div>
+    <div class="results" id="results"></div>
+  </aside>
+  <section class="mapwrap" aria-label="地圖">
+    <div id="map"></div>
+    <div id="fallback" hidden></div>
+    <div class="mapctl"><button type="button" id="b3d" aria-pressed="true">3D</button><button type="button" id="bFit">全部社區</button><button type="button" id="bBack" class="only-m" hidden>回列表</button></div>
+    <div class="mapnote" id="mapNote" hidden></div>
+  </section>
+</main>
+<div class="mobile-switch"><button class="pillbtn primary" id="mSwitch" type="button">看地圖</button></div>
+
+<section class="detail" id="detail" hidden aria-modal="true" role="dialog" aria-labelledby="dName"></section>
+<section class="detail" id="compare" hidden aria-modal="true" role="dialog" aria-label="社區比較"></section>
+<div class="cmpbar" id="cmpBar" hidden></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+const NOW_Y = new Date().getFullYear();
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = n => Number(n).toLocaleString("zh-TW");
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const store = {get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+let DATA = [], META = {}, mapOk = false, map = null, markers = {};
+const F = {q:"",builder:"",dist:new Set(),rooms:new Set(),sMin:null,sMax:null,price:130,age:new Set(),type:new Set(),park:new Set(),seis:new Set(),life:new Set(),sort:"price-asc"};
+let compare = store.get("tc-compare", []);
+
+/* ---------- 共用計算 ---------- */
+const ageText = c => c.status === "預售" ? `預售・${c.completed} 完工` : (NOW_Y - c.completed <= 0 ? "新成屋" : `屋齡 ${NOW_Y - c.completed} 年`);
+const ageBucket = c => { if (c.status === "預售") return "預售"; const a = NOW_Y - c.completed; return a <= 5 ? "5 年內" : a <= 10 ? "5–10 年" : a <= 20 ? "10–20 年" : "20 年以上"; };
+const ladder = c => c.type === "透天" ? "—" : c.towers.map(t => `${t.elevators}梯${t.units_per_floor}戶`).filter((v,i,a)=>a.indexOf(v)===i).join("、");
+const nearMrt = c => (c.nearby.transit || []).some(t => t.kind === "軌道" && t.dist_m <= 800);
+const walk = m => `步行 ${Math.max(1, Math.round(m / 80))} 分`;
+const roomKey = r => r >= 4 ? 4 : r;
+
+function unitMatch(u){
+  if (F.rooms.size && !F.rooms.has(roomKey(u.rooms))) return false;
+  if (F.sMin != null && u.size_ping < F.sMin) return false;
+  if (F.sMax != null && u.size_ping > F.sMax) return false;
+  return true;
+}
+function filtered(){
+  const q = F.q.trim().toLowerCase();
+  const unitFilt = F.rooms.size || F.sMin != null || F.sMax != null;
+  const list = DATA.filter(c => {
+    if (q && ![c.name,c.builder,c.address,c.district,c.contractor,c.architect].join(" ").toLowerCase().includes(q)) return false;
+    if (F.builder && c.builder !== F.builder) return false;
+    if (F.dist.size && !F.dist.has(c.district)) return false;
+    if (F.price < 130 && c.price.unit_low > F.price) return false;
+    if (F.age.size && !F.age.has(ageBucket(c))) return false;
+    if (F.type.size && !F.type.has(c.type)) return false;
+    if (F.park.size && !F.park.has(c.parking.type)) return false;
+    if (F.seis.size){ for (const s of F.seis){ if ((s==="制震"||s==="隔震") && c.seismic!==s) return false; if ((s==="SRC"||s==="SC") && c.structure!==s) return false; } }
+    if (F.life.has("捷運 800m") && !nearMrt(c)) return false;
+    if (F.life.has("低液化") && c.risks.liquefaction !== "低潛勢") return false;
+    if (F.life.has("無淹水潛勢") && c.risks.flood !== "無淹水潛勢") return false;
+    if (F.life.has("有公設") && !c.amenities.length) return false;
+    c._match = unitFilt ? c.units.filter(unitMatch).map(u => u.id) : [];
+    if (unitFilt && !c._match.length) return false;
+    return true;
+  });
+  const by = {"price-asc":(a,b)=>a.price.unit_low-b.price.unit_low,"price-desc":(a,b)=>b.price.unit_high-a.price.unit_high,"new":(a,b)=>b.completed-a.completed,"hh":(a,b)=>b.households-a.households}[F.sort];
+  return list.sort((a,b)=>(b.sponsored?1:0)-(a.sponsored?1:0) || by(a,b));
+}
+
+/* ---------- 篩選介面 ---------- */
+function chipGroup(el, opts, set, counts){
+  el.innerHTML = opts.map(o => `<button type="button" class="chip" data-v="${esc(o.v ?? o)}" aria-pressed="${set.has(o.v ?? o)}">${esc(o.l ?? o)}${counts ? `<span class="c">${counts[o.v ?? o] || 0}</span>` : ""}</button>`).join("");
+  el.onclick = e => { const b = e.target.closest(".chip"); if (!b) return; const v = isNaN(b.dataset.v) ? b.dataset.v : Number(b.dataset.v); set.has(v) ? set.delete(v) : set.add(v); b.setAttribute("aria-pressed", set.has(v)); update(); };
+}
+function count(fn){ const o = {}; DATA.forEach(c => [].concat(fn(c)).forEach(k => o[k] = (o[k]||0)+1)); return o; }
+function buildFilters(){
+  const bc = count(c => c.builder);
+  $("#fBuilder").innerHTML = `<option value="">全部建商（${Object.keys(bc).length} 家）</option>` + Object.keys(bc).sort().map(b => `<option value="${esc(b)}">${esc(b)}（${bc[b]} 個社區）</option>`).join("");
+  const dc = count(c => c.district);
+  chipGroup($("#fDist"), Object.keys(dc).sort((a,b)=>dc[b]-dc[a]), F.dist, dc);
+  chipGroup($("#fRooms"), [{v:1,l:"1 房"},{v:2,l:"2 房"},{v:3,l:"3 房"},{v:4,l:"4 房以上"}], F.rooms);
+  const presets = [{l:"20 坪以下",a:null,b:20},{l:"20–35",a:20,b:35},{l:"35–50",a:35,b:50},{l:"50 坪以上",a:50,b:null}];
+  $("#fSizePreset").innerHTML = presets.map((p,i)=>`<button type="button" class="chip" data-i="${i}" aria-pressed="false">${p.l}</button>`).join("");
+  $("#fSizePreset").onclick = e => { const b = e.target.closest(".chip"); if(!b) return; const p = presets[b.dataset.i]; const on = b.getAttribute("aria-pressed")==="true";
+    F.sMin = on ? null : p.a; F.sMax = on ? null : p.b; $("#sMin").value = F.sMin ?? ""; $("#sMax").value = F.sMax ?? ""; syncPreset(); update(); };
+  window._syncPreset = () => [...$("#fSizePreset").children].forEach((b,i)=>b.setAttribute("aria-pressed", presets[i].a===F.sMin && presets[i].b===F.sMax && (F.sMin!=null||F.sMax!=null)));
+  chipGroup($("#fAge"), ["預售","5 年內","5–10 年","10–20 年","20 年以上"], F.age, count(ageBucket));
+  chipGroup($("#fType"), ["大樓","華廈","透天"], F.type, count(c=>c.type));
+  chipGroup($("#fPark"), ["坡道平面","機械","自有車庫"], F.park, count(c=>c.parking.type));
+  chipGroup($("#fSeis"), [{v:"制震",l:"制震宅"},{v:"隔震",l:"隔震宅"},{v:"SRC",l:"SRC 鋼骨"},{v:"SC",l:"SC 純鋼構"}], F.seis);
+  chipGroup($("#fLife"), [{v:"捷運 800m",l:"捷運／高鐵 800m 內"},{v:"低液化",l:"土壤液化低潛勢"},{v:"無淹水潛勢",l:"無淹水潛勢"},{v:"有公設",l:"有公共設施"}], F.life);
+}
+function syncPreset(){ window._syncPreset && window._syncPreset(); }
+function activeCount(){ return [F.q.trim(),F.builder].filter(Boolean).length + F.dist.size + F.rooms.size + (F.sMin!=null||F.sMax!=null?1:0) + (F.price<130?1:0) + F.age.size + F.type.size + F.park.size + F.seis.size + F.life.size; }
+
+/* ---------- 廣告版位 ----------
+   設定在 data/communities.json 的 meta.ads：
+   adsense.client 填入 ca-pub-xxxx 並在 slots 填各版位 ID → 顯示 Google AdSense
+   house 填入自家／建商委刊橫幅 → 顯示自售廣告（AdSense 未設定的版位才使用）
+   都沒有設定時，若 show_placeholders 為 true 則顯示「廣告版位」佔位框，方便確認位置 */
+function loadAdSense(){
+  const a = META.ads && META.ads.adsense; if (!a || !a.client || loadAdSense.done) return; loadAdSense.done = true;
+  const s = document.createElement("script"); s.async = true; s.crossOrigin = "anonymous";
+  s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(a.client)}`; document.head.appendChild(s);
+}
+function adSlot(name){
+  const A = META.ads || {}, g = A.adsense || {}, slot = g.slots && g.slots[name];
+  if (g.client && slot) return `<div class="ad" data-ad="${name}"><span class="ad-l">廣告</span><ins class="adsbygoogle" style="display:block" data-ad-client="${esc(g.client)}" data-ad-slot="${esc(slot)}" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
+  const h = (A.house || []).filter(x => !x.slots || x.slots.includes(name));
+  if (h.length){ const x = h[Math.floor(Math.random()*h.length)];
+    return `<div class="ad house" data-ad="${name}"><span class="ad-l">廣告・${esc(x.sponsor||"贊助")}</span><a href="${esc(x.url)}" target="_blank" rel="noopener sponsored">${x.image?`<img src="${esc(x.image)}" alt="" width="56" height="56" style="border-radius:8px;object-fit:cover">`:`<span class="hb">${esc((x.sponsor||"廣")[0])}</span>`}<div><b>${esc(x.title)}</b><span>${esc(x.text||"")}</span></div></a></div>`; }
+  if (A.show_placeholders) return `<div class="ad ph" data-ad="${name}"><span>廣告版位「${name}」<br><span class="hint">在 meta.ads 設定 AdSense 或自售廣告後顯示</span></span></div>`;
+  return "";
+}
+function fillAds(root){
+  if (!(META.ads && META.ads.adsense && META.ads.adsense.client)) return;
+  root.querySelectorAll("ins.adsbygoogle:not([data-adsbygoogle-status])").forEach(() => { try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){} });
+}
+
+/* ---------- 結果清單 ---------- */
+function renderList(list){
+  $("#resCount").textContent = list.length;
+  const n = activeCount();
+  $("#activeHint").textContent = n ? `已套用 ${n} 個條件` : "";
+  if (!list.length){ $("#results").innerHTML = `<div class="empty"><b>沒有符合的社區</b><span>試著放寬坪數或單價，或減少行政區。</span><button class="pillbtn" type="button" onclick="document.getElementById('reset').click()">清除全部條件</button></div>`; return; }
+  const every = (META.ads && META.ads.list_every) || 4;
+  $("#results").innerHTML = list.map((c, i) => {
+    const ad = (i + 1) % every === 0 && i < list.length - 1 ? adSlot("list") : "";
+    return cardHTML(c) + ad; }).join("");
+  fillAds($("#results"));
+}
+function cardHTML(c){
+  {
+    const rooms = [...new Set(c.units.map(u=>u.label))];
+    const m = new Set(c._match);
+    const tags = rooms.map(r => { const us = c.units.filter(u=>u.label===r); const hit = us.some(u=>m.has(u.id)); const sz = us.map(u=>u.size_ping); return `<span class="u-tag ${hit?"m":""}">${r.replace("廳","廳 ").split(" ")[0]} ${Math.min(...sz)}${sz.length>1?"–"+Math.max(...sz):""}坪</span>`; }).join("");
+    return `<article class="card${c.sponsored?" spon":""}" data-id="${c.id}" tabindex="0">
+      <div class="card-h"><div>${c.sponsored?`<span class="badge spon">廣告・精選社區</span>`:""}<h3>${esc(c.name)}</h3><div class="meta">${esc(c.builder)}・${esc(c.district)}・${c.type}・${fmt(c.households)} 戶</div></div>
+        <div class="price"><div class="v">${c.price.unit_low}–${c.price.unit_high}</div><div class="u">萬元／坪</div></div></div>
+      <div class="badges"><span class="badge st-${c.status}">${c.status}</span><span class="badge">${ageText(c)}</span><span class="badge">${c.structure}</span>${c.seismic!=="一般"?`<span class="badge seis">${c.seismic}</span>`:""}<span class="badge">${c.parking.type}車位</span></div>
+      <div class="units">${tags}</div>
+      <div class="card-f"><label class="cmp" onclick="event.stopPropagation()"><input type="checkbox" data-cmp="${c.id}" ${compare.includes(c.id)?"checked":""}>加入比較</label><span class="go">查看社區資料 →</span></div>
+    </article>`; }
+}
+
+/* ---------- 地圖 ---------- */
+const M_LAT = 111320;
+function towerPolys(c){
+  const k = 1 / (M_LAT * Math.cos(c.lat*Math.PI/180));
+  return c.towers.map(t => { const x0=t.x-t.w/2,x1=t.x+t.w/2,z0=t.z-t.d/2,z1=t.z+t.d/2;
+    const P = (x,z)=>[c.lng + x*k, c.lat - z/M_LAT];
+    return {type:"Feature",properties:{id:c.id,h:t.floors*3.3,base:0},geometry:{type:"Polygon",coordinates:[[P(x0,z0),P(x1,z0),P(x1,z1),P(x0,z1),P(x0,z0)]]}}; });
+}
+function initMap(){
+  if (!window.maplibregl){ fallbackMap(); return; }
+  let done = false;
+  const timer = setTimeout(()=>{ if(!done){ done=true; try{map&&map.remove()}catch(e){} map=null; fallbackMap(); } }, 7000);
+  try{
+    map = new maplibregl.Map({container:"map",style:"https://tiles.openfreemap.org/styles/liberty",center:[120.665,24.15],zoom:12.4,pitch:55,bearing:-18,attributionControl:{compact:true},maxPitch:75});
+  }catch(e){ clearTimeout(timer); fallbackMap(); return; }
+  map.addControl(new maplibregl.NavigationControl({visualizePitch:true}), "bottom-right");
+  map.on("error", ()=>{});
+  map.on("load", () => {
+    if (done) return; done = true; clearTimeout(timer); mapOk = true;
+    const st = map.getStyle();
+    const has3d = st.layers.some(l => l.type === "fill-extrusion");
+    if (!has3d && st.sources.openmaptiles){
+      map.addLayer({id:"osm-3d",type:"fill-extrusion",source:"openmaptiles","source-layer":"building",minzoom:14,
+        paint:{"fill-extrusion-color":"#d9dcd6","fill-extrusion-height":["coalesce",["get","render_height"],10],"fill-extrusion-base":["coalesce",["get","render_min_height"],0],"fill-extrusion-opacity":.75}});
+    }
+    map.addSource("cm",{type:"geojson",data:{type:"FeatureCollection",features:[]}});
+    map.addLayer({id:"cm-3d",type:"fill-extrusion",source:"cm",paint:{"fill-extrusion-color":css("--accent")||"#1C684E","fill-extrusion-height":["get","h"],"fill-extrusion-base":0,"fill-extrusion-opacity":.88}});
+    map.on("click","cm-3d", e => openDetail(e.features[0].properties.id));
+    map.on("mouseenter","cm-3d",()=>map.getCanvas().style.cursor="pointer");
+    map.on("mouseleave","cm-3d",()=>map.getCanvas().style.cursor="");
+    paintMap(filtered(), true);
+  });
+}
+function paintMap(list, fit){
+  if (mapOk && map){
+    map.getSource("cm") && map.getSource("cm").setData({type:"FeatureCollection",features:list.flatMap(towerPolys)});
+    Object.values(markers).forEach(m=>m.remove()); markers = {};
+    list.forEach(c => {
+      const el = document.createElement("div"); el.className = "mk"; el.dataset.id = c.id;
+      el.innerHTML = `<small>${esc(c.name.split("・").pop())}</small>${c.price.unit_low}–${c.price.unit_high}`;
+      el.onclick = ev => { ev.stopPropagation(); openDetail(c.id); };
+      el.onmouseenter = () => hot(c.id, true); el.onmouseleave = () => hot(c.id, false);
+      markers[c.id] = new maplibregl.Marker({element:el,anchor:"bottom",offset:[0,-6]}).setLngLat([c.lng,c.lat]).addTo(map);
+    });
+    if (fit && list.length){ const b = new maplibregl.LngLatBounds(); list.forEach(c=>b.extend([c.lng,c.lat])); map.fitBounds(b,{padding:{top:80,bottom:60,left:60,right:60},maxZoom:15.5,duration:fit===true?0:800}); }
+  } else if (!$("#fallback").hidden){ drawFallback(list); }
+}
+function hot(id, on){
+  document.querySelectorAll(`.mk[data-id="${id}"], .card[data-id="${id}"], #fallback [data-id="${id}"]`).forEach(e=>e.classList.toggle("hot", on));
+}
+/* 無法載入圖資時（例如離線或在受限環境預覽）改用簡易示意圖 */
+const BB = {w:120.595,e:120.735,s:24.088,n:24.198};
+function proj(lat,lng){ return [ (lng-BB.w)/(BB.e-BB.w)*1000, (BB.n-lat)/(BB.n-BB.s)*880 ]; }
+function fallbackMap(){
+  $("#map").hidden = true; $("#fallback").hidden = false; $("#b3d").hidden = true;
+  const n = $("#mapNote"); n.hidden = false;
+  n.innerHTML = "目前環境無法載入線上圖資，先以示意圖標出社區位置。網頁放到貴公司網站後，這裡會自動顯示可旋轉的 3D 地圖（OpenFreeMap，免金鑰）。";
+  drawFallback(filtered());
+}
+function drawFallback(list){
+  const D = [["西屯區",24.172,120.627],["南屯區",24.137,120.632],["北屯區",24.188,120.700],["西區",24.142,120.668],["北區",24.162,120.690],["太平區",24.125,120.722],["大里區",24.098,120.690],["烏日區",24.098,120.612],["南區",24.118,120.665],["中區",24.142,120.683],["東區",24.135,120.700]];
+  const road = [[24.138,120.684],[24.150,120.660],[24.163,120.639],[24.178,120.612]].map(p=>proj(...p).join(",")).join(" ");
+  const ring = [[24.180,120.640],[24.188,120.680],[24.170,120.705],[24.135,120.705],[24.112,120.675],[24.120,120.640],[24.148,120.628]].map(p=>proj(...p).join(",")).join(" ");
+  let g = "";
+  for (let i=1;i<10;i++) g += `<line x1="${i*100}" y1="0" x2="${i*100}" y2="880" /><line x1="0" y1="${i*88}" x2="1000" y2="${i*88}" />`;
+  $("#fallback").innerHTML = `<svg viewBox="0 0 1000 880" preserveAspectRatio="xMidYMid slice" role="img" aria-label="社區位置示意圖">
+    <rect width="1000" height="880" fill="var(--sunk)"/>
+    <g stroke="var(--line)" stroke-width="1">${g}</g>
+    <polygon points="${ring}" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="2 7" opacity=".6"/>
+    <polyline points="${road}" fill="none" stroke="var(--price)" stroke-width="5" opacity=".35" stroke-linecap="round"/>
+    <text x="${proj(24.161,120.645)[0]+14}" y="${proj(24.161,120.645)[1]-10}" fill="var(--price)" font-size="15" opacity=".8">台灣大道</text>
+    ${D.map(d=>{const [x,y]=proj(d[1],d[2]);return `<text x="${x}" y="${y}" text-anchor="middle" fill="var(--muted)" font-size="20" font-weight="700" opacity=".55" letter-spacing="3">${d[0]}</text>`}).join("")}
+    ${list.map(c=>{const [x,y]=proj(c.lat,c.lng);return `<g class="pin" data-id="${c.id}" transform="translate(${x},${y})" tabindex="0">
+      <rect x="-58" y="-42" width="116" height="30" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+      <path d="M-6 -12 L0 -4 L6 -12Z" fill="var(--accent)"/><circle r="4" fill="var(--accent)"/>
+      <text y="-21" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">${esc(c.name.split("・").pop())}</text></g>`}).join("")}
+  </svg>`;
+  $("#fallback").querySelectorAll(".pin").forEach(p => { p.onclick = () => openDetail(p.dataset.id); p.onkeydown = e => { if(e.key==="Enter") openDetail(p.dataset.id); }; });
+}
+
+/* ---------- 更新 ---------- */
+let lastIds = "";
+function update(){
+  const list = filtered();
+  renderList(list);
+  const ids = list.map(c=>c.id).join();
+  paintMap(list, ids !== lastIds ? "anim" : false); lastIds = ids;
+  syncPreset();
+}
+
+/* ---------- 詳細頁 ---------- */
+const TABS = [["ov","總覽"],["units","房型格局"],["price","實價行情"],["amen","公設建材"],["near","周邊機能"],["risk","安全風險"],["docs","建照與文件"]];
+let cur = null, curTab = "ov", curUnit = null, mass = null;
+const gmap = (c,t="") => `https://maps.google.com/maps?q=${c.lat},${c.lng}&hl=zh-TW&z=17${t}&output=embed`;
+const gLinks = c => ({
+  map:`https://www.google.com/maps/search/?api=1&query=${c.lat},${c.lng}`,
+  sv:`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${c.lat},${c.lng}`,
+  dir:`https://www.google.com/maps/dir/?api=1&destination=${c.lat},${c.lng}`,
+  earth:`https://earth.google.com/web/@${c.lat},${c.lng},80a,600d,35y,0h,60t,0r`
+});
+function openDetail(id){ if (location.hash !== "#"+id) location.hash = id; else showDetail(id); }
+function closeDetail(){ if (location.hash) history.pushState("", "", location.pathname + location.search); route(); }
+function showDetail(id){
+  const c = DATA.find(x=>x.id===id); if (!c) return;
+  if (cur !== c){ curTab = "ov"; curUnit = c.units[0].id; }
+  cur = c;
+  const L = gLinks(c);
+  const d = $("#detail");
+  d.innerHTML = `<div class="d-head"><div class="d-headin">
+    <button class="back" type="button" id="dBack">← 回到查詢結果</button>
+    <div class="d-row"><div class="d-title"><h2 id="dName">${esc(c.name)}</h2><p>${esc(c.builder)}・${esc(c.address)}</p></div>
+      <div class="d-actions">
+        <a class="btn" href="${L.map}" target="_blank" rel="noopener">Google 地圖</a>
+        <a class="btn" href="${L.sv}" target="_blank" rel="noopener">街景</a>
+        <a class="btn" href="${L.earth}" target="_blank" rel="noopener">Google Earth 3D</a>
+        <button class="pillbtn" type="button" id="dCmp">${compare.includes(c.id)?"已加入比較":"加入比較"}</button>
+        <button class="pillbtn" type="button" id="dCopy">複製連結</button>
+      </div></div>
+    <div class="badges"><span class="badge st-${c.status}">${c.status}</span><span class="badge">${ageText(c)}</span><span class="badge">${c.type}</span><span class="badge">${c.structure}</span>${c.seismic!=="一般"?`<span class="badge seis">${c.seismic}</span>`:""}${c.sample?`<span class="badge st-預售">示範資料</span>`:""}<span class="badge">資料更新 ${c.updated}</span></div>
+    <nav class="tabs" role="tablist">${TABS.map(([k,l])=>`<button class="tab" role="tab" data-t="${k}" aria-selected="${k===curTab}">${l}</button>`).join("")}</nav>
+  </div></div>
+  <div class="d-body" id="dBody"></div>`;
+  d.hidden = false; document.body.style.overflow = "hidden";
+  $("#dBack").onclick = closeDetail;
+  $("#dCopy").onclick = () => copy(location.href);
+  $("#dCmp").onclick = () => { toggleCompare(c.id); $("#dCmp").textContent = compare.includes(c.id)?"已加入比較":"加入比較"; };
+  d.querySelector(".tabs").onclick = e => { const b = e.target.closest(".tab"); if (!b) return; curTab = b.dataset.t; d.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected", t===b)); renderTab(); };
+  renderTab();
+}
+function renderTab(){
+  const c = cur, b = $("#dBody"); b.scrollTop = 0;
+  if (mass){ mass.stop(); mass = null; }
+  const html = ({ov:tabOv,units:tabUnits,price:tabPrice,amen:tabAmen,near:tabNear,risk:tabRisk,docs:tabDocs})[curTab](c);
+  b.innerHTML = `<div class="d-in">${html}${adSlot("detail")}</div>`; fillAds(b);
+  if (curTab === "ov") mass = massing($("#mass"), c);
+  if (curTab === "units") bindUnits(c);
+}
+const fact = (k,v) => `<div><dt>${k}</dt><dd>${v}</dd></div>`;
+function tabOv(c){
+  const sz = c.units.map(u=>u.size_ping);
+  return `<div class="kpis">
+    <div class="kpi"><span>成交單價</span><b class="p">${c.price.unit_low}–${c.price.unit_high}</b><i>萬元／坪（不含車位）</i></div>
+    <div class="kpi"><span>權狀坪數</span><b>${Math.min(...sz)}–${Math.max(...sz)}</b><i>坪・${[...new Set(c.units.map(u=>u.rooms))].join("／")} 房</i></div>
+    <div class="kpi"><span>總戶數</span><b>${fmt(c.households)}</b><i>${c.towers.length} 棟・地上 ${c.floors_above} 層</i></div>
+    <div class="kpi"><span>${c.type==="透天"?"管理費":"公設比／管理費"}</span><b>${c.type==="透天"?"—":c.public_ratio+"%"}</b><i>${c.mgmt_fee?c.mgmt_fee+" 元／坪・月":"無管理費"}</i></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h3>社區基本資料</h3>
+      <dl class="facts">
+        ${fact("建設公司",esc(c.builder))}${fact("營造廠",esc(c.contractor))}${fact("建築設計",esc(c.architect))}
+        ${fact("完工年份",c.status==="預售"?`預計 ${c.completed} 年`:`${c.completed} 年（民國 ${c.completed-1911}）`)}${fact("建物型態",c.type)}${fact("構造",{RC:"RC 鋼筋混凝土",SRC:"SRC 鋼骨鋼筋混凝土",SC:"SC 鋼構造"}[c.structure])}
+        ${fact("耐震設計",c.seismic==="一般"?"依法規耐震設計":c.seismic+"設計")}${fact("樓層",`地上 ${c.floors_above}／地下 ${c.floors_below} 層`)}${fact("梯戶比",ladder(c))}
+        ${fact("車位",`${fmt(c.parking.count)} 位・${c.parking.type}`)}${fact("車位行情",c.parking.price_wan?c.parking.price_wan+" 萬／位":"—")}${fact("物業管理",esc(c.property_mgmt))}
+        ${fact("使用分區",esc(c.permit.zoning))}${fact("基地面積",`<span class="num">${fmt(c.permit.site_area_m2)}</span> ㎡（${fmt(Math.round(c.permit.site_area_m2*0.3025))} 坪）`)}${fact("建蔽率／容積率",`${c.permit.coverage_pct}%／${c.permit.far_pct}%`)}
+      </dl>
+      <div><div class="flabel" style="margin-bottom:6px">社區特色</div><div class="hl">${c.highlights.map(h=>`<span>${esc(h)}</span>`).join("")}</div></div>
+    </div>
+    <div class="panel"><h3>3D 量體 <small>拖曳旋轉・滾輪縮放</small></h3>
+      <canvas id="mass" aria-label="${esc(c.name)} 建築量體 3D 模型"></canvas>
+      <div class="towerlist">${c.type==="透天"?`<div><span>連棟透天 ${c.towers.length} 戶</span><span class="num">各 ${c.towers[0].floors}F</span></div>`:c.towers.map(t=>`<div><span>${t.name}</span><span class="num">${t.floors}F・每層 ${t.units_per_floor} 戶・${t.elevators} 部電梯</span></div>`).join("")}</div>
+      <p class="hint">依各棟樓層數與基地配置繪製的示意量體，高度以每層 3.3 公尺估算。</p>
+    </div>
+  </div>
+  <div class="panel"><h3>建造／使用執照 <small>詳細掃描檔見「建照與文件」</small></h3>
+    <dl class="facts permit">
+      ${fact("建造執照字號",esc(c.permit.build_no))}${fact("建照核發日",c.permit.build_date)}${fact("使用執照字號",esc(c.permit.use_no))}${fact("使照核發日",c.permit.use_date)}
+      ${fact("核准用途",esc(c.permit.use))}${fact("總樓地板面積",fmt(c.permit.floor_area_m2)+" ㎡")}
+    </dl>
+  </div>`;
+}
+function tabUnits(c){
+  return `<div class="panel"><h3>選擇房型 <small>點選看格局與坪數拆解</small></h3>
+    <div class="unitpick" id="upick">${c.units.map(u=>`<button type="button" data-u="${u.id}" aria-pressed="${u.id===curUnit}"><b>${u.label}</b><span>${u.size_ping} 坪・${u.layout.endsWith("w")?"B":"A"} 型</span></button>`).join("")}</div></div>
+    <div class="grid2" id="uview"></div>
+    <div class="panel"><h3>全部房型一覽</h3><div class="tscroll"><table class="t"><thead><tr><th>房型</th><th class="r">權狀</th><th class="r">主建物</th><th class="r">陽台</th><th class="r">主建物占比</th><th>座向</th><th class="r">戶數</th><th class="r">估算總價（不含車位）</th></tr></thead><tbody>
+    ${c.units.map(u=>`<tr><td>${u.label}（${u.layout.endsWith("w")?"B":"A"}）</td><td class="r num">${u.size_ping}</td><td class="r num">${u.main_ping}</td><td class="r num">${u.balcony_ping}</td><td class="r num">${Math.round(u.main_ping/u.size_ping*100)}%</td><td>${u.facing}</td><td class="r num">${u.count}</td><td class="r num">${fmt(Math.round(u.size_ping*c.price.unit_low))}–${fmt(Math.round(u.size_ping*c.price.unit_high))} 萬</td></tr>`).join("")}
+    </tbody></table></div><p class="hint">估算總價＝權狀坪數 × 成交單價區間，僅供參考；實際以個別戶別條件與議價結果為準。</p></div>`;
+}
+function bindUnits(c){
+  const draw = () => {
+    const u = c.units.find(x=>x.id===curUnit);
+    const pub = Math.max(0, u.size_ping - u.main_ping - u.balcony_ping);
+    $("#uview").innerHTML = `<div class="panel"><h3>${u.label} 格局 <small>${u.plan?"正式格局圖":"格局示意（上傳格局圖後自動替換）"}</small></h3>
+      <div class="plan">${u.plan?`<img src="${esc(u.plan)}" alt="${esc(c.name)} ${esc(u.label)} 格局圖">`:planSVG(u)}</div></div>
+      <div class="panel"><h3>坪數拆解</h3>
+        ${stackBar([["主建物",u.main_ping,"var(--accent)"],["陽台／附屬",u.balcony_ping,"var(--price)"],["公設分攤",+pub.toFixed(1),"var(--muted)"]], u.size_ping)}
+        <dl class="facts">${fact("權狀坪數",u.size_ping+" 坪")}${fact("室內實際可用（約）",u.main_ping+" 坪")}${fact("座向",u.facing)}${fact("同房型戶數",u.count+" 戶")}${fact("估算總價",`${fmt(Math.round(u.size_ping*c.price.unit_low))}–${fmt(Math.round(u.size_ping*c.price.unit_high))} 萬`)}${fact("搭配車位",c.parking.price_wan?`+ ${c.parking.price_wan} 萬（${c.parking.type}）`:c.parking.type)}</dl>
+        <p class="hint">主建物占比 ${Math.round(u.main_ping/u.size_ping*100)}%：數字越高，實際室內空間越大。</p>
+      </div>`;
+  };
+  $("#upick").onclick = e => { const b = e.target.closest("button"); if(!b) return; curUnit = b.dataset.u; $("#upick").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed", x===b)); draw(); };
+  draw();
+}
+function stackBar(parts, total){
+  let x = 0;
+  return `<svg viewBox="0 0 400 54" role="img" aria-label="坪數拆解">${parts.map(([l,v,col])=>{ const w = v/total*400; const s = `<rect x="${x}" y="0" width="${Math.max(0,w-2)}" height="22" rx="3" fill="${col}"/><text x="${x}" y="40" font-size="12" fill="var(--muted)">${l}</text><text x="${x}" y="53" font-size="12" fill="var(--ink)" font-family="IBM Plex Mono, monospace">${v} 坪</text>`; x += w; return w>40?s:`<rect x="${x-w}" y="0" width="${Math.max(0,w-2)}" height="22" rx="3" fill="${col}"/>`; }).join("")}</svg>`;
+}
+/* 格局示意：依房數套用版型，主建物坪數依面積比例分配 */
+const PLANS = {
+  1:{h:70,r:[["客餐廳",0,0,58,40],["廚房",58,0,42,20],["衛浴",58,20,42,20],["主臥",0,40,58,30],["玄關收納",58,40,42,18],["工作陽台",58,58,42,12]]},
+  2:{h:70,r:[["主臥",0,0,35,36],["衛浴",0,36,35,14],["次臥",0,50,35,20],["客廳",35,0,40,44],["餐廳",35,44,40,26],["廚房",75,0,25,28],["工作陽台",75,28,25,12],["玄關",75,40,25,30]]},
+  3:{h:70,r:[["主臥",0,0,32,34],["主衛",0,34,16,14],["更衣",16,34,16,14],["次臥",0,48,32,22],["客廳",32,0,38,40],["餐廳",32,40,22,30],["衛浴",54,40,16,14],["玄關",54,54,16,16],["廚房",70,0,30,24],["工作陽台",70,24,30,14],["臥室",70,38,30,32]]},
+  4:{h:76,r:[["主臥",0,0,30,34],["主衛",0,34,15,14],["更衣",15,34,15,14],["臥室",0,48,30,28],["客廳",30,0,40,40],["餐廳",30,40,24,36],["衛浴",54,40,16,16],["玄關",54,56,16,20],["廚房",70,0,30,22],["工作陽台",70,22,30,12],["臥室",70,34,30,20],["臥室",70,54,30,22]]},
+};
+function planSVG(u){
+  const P = PLANS[Math.min(4,u.rooms)], mir = u.layout.endsWith("w"), S = 6, W = 100*S, H = P.h*S, pad = 34;
+  const area = 100*P.h;
+  const rooms = P.r.map(([l,x,y,w,h]) => [l, mir?100-x-w:x, y, w, h]);
+  const dir = {"坐北朝南":180,"坐南朝北":0,"坐東朝西":270,"坐西朝東":90}[u.facing] ?? 0;
+  return `<svg viewBox="${-pad} ${-pad-22} ${W+pad*2} ${H+pad*2+22}" role="img" aria-label="${esc(u.label)} 格局示意圖">
+    <rect x="${mir?0:30*S}" y="-22" width="${(mir?70:70)*S - (mir?0:30*S) + (mir?0:0)}" height="20" fill="none" stroke="var(--muted)" stroke-dasharray="4 4"/>
+    <text x="${(mir?35:65)*S}" y="-8" text-anchor="middle" font-size="12" fill="var(--muted)">前陽台</text>
+    ${rooms.map(([l,x,y,w,h])=>{ const ping = (w*h/area*u.main_ping).toFixed(1); const wet = /衛|廚|陽台/.test(l);
+      return `<rect x="${x*S}" y="${y*S}" width="${w*S}" height="${h*S}" fill="${wet?"var(--sunk)":"var(--surface)"}" stroke="var(--ink)" stroke-width="2.5"/>
+      <text x="${(x+w/2)*S}" y="${(y+h/2)*S-2}" text-anchor="middle" font-size="${w<20?13:16}" font-weight="700" fill="var(--ink)">${l}</text>
+      <text x="${(x+w/2)*S}" y="${(y+h/2)*S+16}" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${ping} 坪</text>`; }).join("")}
+    <rect x="0" y="0" width="${W}" height="${H}" fill="none" stroke="var(--ink)" stroke-width="6"/>
+    <g transform="translate(${W+pad-14},${-pad+2}) rotate(${dir})"><circle r="13" fill="var(--surface)" stroke="var(--muted)"/><path d="M0 -10 L5 4 L0 1 L-5 4Z" fill="var(--danger)"/></g>
+    <text x="${W+pad-14}" y="${-pad+30}" text-anchor="middle" font-size="11" fill="var(--muted)">北</text>
+    <text x="0" y="${H+24}" font-size="12" fill="var(--muted)">示意圖・非實際比例・室內約 ${u.main_ping} 坪・${esc(u.facing)}</text>
+  </svg>`;
+}
+function tabPrice(c){
+  const t = c.price.trend, lo = Math.floor(Math.min(...t.map(x=>x.unit))/5)*5, hi = Math.ceil(Math.max(...t.map(x=>x.unit))/5)*5 || lo+5;
+  const W=640,H=240,l=46,r=16,tp=16,bt=34, X = i => l + i*(W-l-r)/(t.length-1), Y = v => tp + (hi-v)/(hi-lo||1)*(H-tp-bt);
+  const ticks = []; const step = Math.max(1, Math.round((hi-lo)/4/1)) ; for (let v=lo; v<=hi; v+=step) ticks.push(v);
+  const pts = t.map((p,i)=>`${X(i)},${Y(p.unit)}`).join(" ");
+  const last = t[t.length-1], first = t[0], chg = ((last.unit/first.unit-1)*100).toFixed(1);
+  const L = META.links || {};
+  return `<div class="kpis">
+    <div class="kpi"><span>近期成交單價</span><b class="p">${c.price.unit_low}–${c.price.unit_high}</b><i>萬元／坪</i></div>
+    <div class="kpi"><span>最新一季均價</span><b>${last.unit}</b><i>${last.q}</i></div>
+    <div class="kpi"><span>近 8 季變化</span><b style="color:${chg>=0?"var(--ok)":"var(--danger)"}">${chg>0?"+":""}${chg}%</b><i>${first.q} 起</i></div>
+    <div class="kpi"><span>車位行情</span><b>${c.parking.price_wan||"—"}</b><i>${c.parking.price_wan?"萬元／位・":""}${c.parking.type}</i></div>
+  </div>
+  <div class="panel chart"><h3>單價走勢 <small>萬元／坪，每季均價</small></h3>
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="每季成交單價走勢">
+      ${ticks.map(v=>`<line x1="${l}" x2="${W-r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${l-8}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${v}</text>`).join("")}
+      <polygon points="${X(0)},${H-bt} ${pts} ${X(t.length-1)},${H-bt}" fill="var(--price)" opacity=".12"/>
+      <polyline points="${pts}" fill="none" stroke="var(--price)" stroke-width="2.5" stroke-linejoin="round"/>
+      ${t.map((p,i)=>`<circle cx="${X(i)}" cy="${Y(p.unit)}" r="${i===t.length-1?5.5:3}" fill="${i===t.length-1?"var(--price)":"var(--surface)"}" stroke="var(--price)" stroke-width="2"/><text x="${X(i)}" y="${H-12}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${p.q.replace("20","")}</text>`).join("")}
+      <text x="${X(t.length-1)-8}" y="${Y(last.unit)-12}" text-anchor="end" font-size="13" font-weight="600" fill="var(--price)" font-family="IBM Plex Mono, monospace">${last.unit}</text>
+    </svg></div>
+  <div class="panel"><h3>近期成交紀錄 <small>${esc(c.price.note)}</small></h3>
+    <div class="tscroll"><table class="t"><thead><tr><th>年月</th><th>樓層</th><th>房型</th><th class="r">權狀坪數</th><th class="r">單價（萬／坪）</th><th class="r">總價（萬）</th><th>含車位</th></tr></thead><tbody>
+    ${c.price.deals.map(d=>`<tr><td class="num">${d.date}</td><td>${typeof d.floor==="number"?d.floor+"F":d.floor}</td><td>${d.unit_type}</td><td class="r num">${d.size_ping}</td><td class="r num">${d.unit_price}</td><td class="r num">${fmt(d.total_wan)}</td><td>${d.parking?"是":"否"}</td></tr>`).join("")}
+    </tbody></table></div>
+    <div class="linkrow">${L.price?`<a class="btn" href="${L.price}" target="_blank" rel="noopener">到內政部實價登錄查完整紀錄 ↗</a>`:""}</div>
+  </div>`;
+}
+function tabAmen(c){
+  const m = c.materials;
+  return `<div class="grid2">
+    <div class="panel"><h3>公共設施 <small>${c.amenities.length} 項・公設比 ${c.public_ratio||0}%</small></h3>
+      ${c.amenities.length?`<div class="amen">${c.amenities.map(a=>`<span>${esc(a)}</span>`).join("")}</div>`:`<p class="hint">本社區為${c.type}，無共用公共設施。</p>`}
+      <dl class="facts">${fact("管理費",c.mgmt_fee?`${c.mgmt_fee} 元／坪・月`:"—")}${fact("物業管理",esc(c.property_mgmt))}${fact("車位管理費",c.parking.price_wan?"約 500–800 元／月":"—")}${fact("梯戶比",ladder(c))}</dl>
+      <p class="hint">以 ${c.units[0].size_ping} 坪計，每月管理費約 ${fmt(c.mgmt_fee*c.units[0].size_ping)} 元。</p>
+    </div>
+    <div class="panel"><h3>建材與設備</h3>
+      <dl class="facts">${fact("外牆",esc(m.exterior))}${fact("門窗",esc(m.window))}${fact("大門",esc(m.doors))}${fact("廚具",esc(m.kitchen))}${fact("衛浴",esc(m.bath))}${fact("地坪",esc(m.flooring))}${fact("構造",c.structure)}${fact("耐震",c.seismic)}</dl>
+    </div></div>`;
+}
+function tabNear(c){
+  const n = c.nearby, groups = [["學區",n.schools],["交通",n.transit],["購物",n.shopping],["公園",n.parks],["醫療",n.medical],["市場",n.markets]];
+  const L = gLinks(c);
+  return `<div class="grid2">
+    <div class="panel"><h3>生活機能 <small>直線距離</small></h3>
+      <div class="near">${groups.flatMap(([g,arr])=>(arr||[]).map(p=>`<div class="row"><span class="k">${g}</span><span>${esc(p.name)} <span class="hint">${esc(p.kind)}</span></span><span class="d">${p.dist_m>=1000?(p.dist_m/1000).toFixed(1)+" km":p.dist_m+" m"}</span><span class="w">${p.dist_m<=1500?walk(p.dist_m):"建議開車"}</span></div>`)).join("")}</div>
+      <p class="hint">學區以當年度教育局公告為準，入學前請向學校確認。</p>
+    </div>
+    <div class="panel"><h3>Google 地圖</h3>
+      <div id="gWrap">${mapOk?`<iframe class="gframe" src="${gmap(c)}" loading="lazy" title="Google 地圖：${esc(c.name)}" referrerpolicy="no-referrer-when-downgrade"></iframe>`:`<div class="gframe" style="display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted)">網頁上線後這裡會內嵌 Google 地圖（免金鑰）。<br>現在可先用下方按鈕開啟。</div>`}</div>
+      <div class="linkrow">${mapOk?`<button class="pillbtn" type="button" onclick="document.querySelector('#gWrap iframe').src='${gmap(c,"&t=k")}'">衛星</button><button class="pillbtn" type="button" onclick="document.querySelector('#gWrap iframe').src='${gmap(c)}'">地圖</button>`:""}
+        <a class="btn" href="${L.map}" target="_blank" rel="noopener">開啟 Google 地圖 ↗</a><a class="btn" href="${L.sv}" target="_blank" rel="noopener">街景 ↗</a><a class="btn" href="${L.dir}" target="_blank" rel="noopener">導航 ↗</a></div>
+    </div></div>`;
+}
+function lv(s){ return /低|無|未列管|查無/.test(s) ? "ok" : /中|0\.3/.test(s) ? "warn" : "bad"; }
+function tabRisk(c){
+  const r = c.risks, L = META.links || {};
+  const fk = r.fault_km, fl = fk < 4 ? "warn" : "ok";
+  const rows = [["土壤液化",r.liquefaction,lv(r.liquefaction),"經濟部土壤液化潛勢圖"],["淹水潛勢",r.flood,lv(r.flood),"水利署淹水潛勢圖"],["斷層距離",`距${r.fault_name}約 ${fk} 公里`,fl,"中央地質調查所活動斷層圖"],["海砂屋",r.sea_sand,"ok","氯離子檢測"],["輻射屋",r.radiation,"ok","核安會列管清單"],["非自然身故",r.stigma,"warn","需另行查證"]];
+  return `<div class="panel"><h3>安全與環境風險</h3>
+    ${rows.map(([k,v,l,s])=>`<div class="risk"><span class="rk">${k}</span><span class="rv">${esc(v)}・<span class="hint">${s}</span></span><span class="lv ${l}">${{ok:"低",warn:"留意",bad:"高"}[l]}</span></div>`).join("")}
+    <p class="disclaim">${esc(r.notes)}</p>
+    <div class="linkrow">${L.liquefaction?`<a class="btn" href="${L.liquefaction}" target="_blank" rel="noopener">土壤液化潛勢查詢 ↗</a>`:""}${L.urban?`<a class="btn" href="${L.urban}" target="_blank" rel="noopener">臺中市都市發展局 ↗</a>`:""}</div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h3>鄰近嫌惡設施 <small>500 公尺內</small></h3>
+      ${r.avoid.length?`<div class="near">${r.avoid.map(a=>`<div class="row"><span class="k">留意</span><span>${esc(a.name)}</span><span class="d">${a.dist_m} m</span><span class="w"></span></div>`).join("")}</div>`:`<p class="hint">500 公尺內未登錄嫌惡設施。</p>`}
+    </div>
+    <div class="panel"><h3>看屋檢查清單</h3>
+      <ul class="checklist">${["牆面、天花板有無滲水或壁癌","結構有無裂縫（尤其樑柱、窗角）","調閱管委會會議紀錄，確認有無重大修繕或訴訟","確認車位編號、尺寸與產權登記一致","查詢管理費是否有欠繳","確認頂樓、外牆是否為約定專用或有違建"].map((t,i)=>`<li><input type="checkbox" id="ck${i}"><label for="ck${i}">${t}</label></li>`).join("")}</ul>
+    </div></div>`;
+}
+function tabDocs(c){
+  return `<div class="panel"><h3>建照與相關文件 <small>${c.docs.filter(d=>d.file).length}／${c.docs.length} 份已上傳</small></h3>
+    <div class="docs">${c.docs.map(d=>`<div class="doc"><div class="ico">${esc(d.kind.slice(0,2))}</div><b>${esc(d.title)}</b>
+      ${d.file?`<a class="btn" href="${esc(d.file)}" target="_blank" rel="noopener">開啟檔案 ↗</a><span class="st on">已上傳</span>`:`<span class="st">尚未上傳</span>`}</div>`).join("")}</div>
+    <p class="disclaim">建照、使照存根影本由本公司調閱整理，內容以主管機關核發之正本為準。</p></div>`;
+}
+
+/* ---------- 3D 量體（three.js，免金鑰） ---------- */
+function massing(canvas, c){
+  if (!window.THREE || !canvas) { if(canvas) canvas.outerHTML = `<p class="hint">3D 元件載入失敗，請重新整理頁面。</p>`; return null; }
+  const T = THREE, R = new T.WebGLRenderer({canvas, antialias:true, alpha:true});
+  const size = () => { const w = canvas.clientWidth, h = canvas.clientHeight; R.setSize(w, h, false); cam.aspect = w/h; cam.updateProjectionMatrix(); };
+  R.setPixelRatio(Math.min(2, devicePixelRatio || 1));
+  const scene = new T.Scene(), cam = new T.PerspectiveCamera(35, 4/3, 1, 3000);
+  const col = n => new T.Color(css(n) || "#888");
+  scene.add(new T.HemisphereLight(0xffffff, 0x667766, .85));
+  const sun = new T.DirectionalLight(0xffffff, .7); sun.position.set(120, 200, 90); scene.add(sun);
+  const FH = 3.3, maxH = c.floors_above * FH;
+  const span = Math.max(...c.towers.map(t=>Math.abs(t.x)+t.w/2), 20) * 2 + 40;
+  const ground = new T.Mesh(new T.PlaneGeometry(span*1.6, span*1.4), new T.MeshLambertMaterial({color:col("--line")}));
+  ground.rotation.x = -Math.PI/2; scene.add(ground);
+  const grid = new T.GridHelper(span*1.6, 16, col("--muted"), col("--muted")); grid.material.opacity = .18; grid.material.transparent = true; grid.position.y = .05; scene.add(grid);
+  const site = new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(span, .1, span*.7)), new T.LineBasicMaterial({color:col("--price")})); site.position.y = .1; scene.add(site);
+  const body = new T.MeshLambertMaterial({color:col("--surface")}), acc = new T.MeshLambertMaterial({color:col("--accent")});
+  const lineM = new T.LineBasicMaterial({color:col("--muted"), transparent:true, opacity:.55});
+  c.towers.forEach((t, i) => {
+    const h = t.floors * FH;
+    const m = new T.Mesh(new T.BoxGeometry(t.w, h, t.d), i===0 ? body : body); m.position.set(t.x, h/2, t.z); scene.add(m);
+    const pts = []; const hw=t.w/2, hd=t.d/2;
+    for (let f=1; f<t.floors; f+= (t.floors>20?2:1)){ const y=f*FH; pts.push(-hw,y,hd, hw,y,hd, hw,y,hd, hw,y,-hd, hw,y,-hd, -hw,y,-hd, -hw,y,-hd, -hw,y,hd); }
+    const g = new T.BufferGeometry(); g.setAttribute("position", new T.Float32BufferAttribute(pts,3));
+    const fl = new T.LineSegments(g, lineM); fl.position.set(t.x,0,t.z); scene.add(fl);
+    const ed = new T.LineSegments(new T.EdgesGeometry(m.geometry), new T.LineBasicMaterial({color:col("--ink")})); ed.position.copy(m.position); scene.add(ed);
+    const crown = new T.Mesh(new T.BoxGeometry(t.w*.6, FH*1.2, t.d*.6), acc); crown.position.set(t.x, h+FH*.6, t.z); if (c.type!=="透天") scene.add(crown);
+  });
+  if (c.floors_below){ const pod = new T.Mesh(new T.BoxGeometry(span*.9, 4.5, span*.55), new T.MeshLambertMaterial({color:col("--accent-soft")})); pod.position.y = 2.25; scene.add(pod); }
+  let az = .75, el = .5, dist = Math.max(maxH*2.4, span*1.5), auto = !matchMedia("(prefers-reduced-motion: reduce)").matches, drag = null, raf = 0;
+  const place = () => { cam.position.set(Math.sin(az)*Math.cos(el)*dist, Math.sin(el)*dist + maxH*.25, Math.cos(az)*Math.cos(el)*dist); cam.lookAt(0, maxH*.38, 0); };
+  canvas.onpointerdown = e => { drag = {x:e.clientX,y:e.clientY}; auto = false; canvas.setPointerCapture(e.pointerId); canvas.style.cursor="grabbing"; };
+  canvas.onpointermove = e => { if(!drag) return; az -= (e.clientX-drag.x)*.008; el = Math.min(1.35, Math.max(.08, el + (e.clientY-drag.y)*.006)); drag = {x:e.clientX,y:e.clientY}; };
+  canvas.onpointerup = canvas.onpointercancel = () => { drag = null; canvas.style.cursor="grab"; };
+  canvas.onwheel = e => { e.preventDefault(); dist = Math.min(span*5, Math.max(span*.6, dist * (1 + Math.sign(e.deltaY)*.08))); auto = false; };
+  const ro = new ResizeObserver(size); ro.observe(canvas); size();
+  const loop = () => { if (auto) az += .003; place(); R.render(scene, cam); raf = requestAnimationFrame(loop); };
+  loop();
+  return { stop(){ cancelAnimationFrame(raf); ro.disconnect(); R.dispose(); } };
+}
+
+/* ---------- 比較 ---------- */
+function toggleCompare(id){
+  if (compare.includes(id)) compare = compare.filter(x=>x!==id);
+  else { if (compare.length >= 3){ toast("最多比較 3 個社區，請先移除一個"); return; } compare.push(id); }
+  store.set("tc-compare", compare); syncCompare();
+}
+function syncCompare(){
+  $("#cmpCnt").textContent = compare.length;
+  document.querySelectorAll("[data-cmp]").forEach(i => i.checked = compare.includes(i.dataset.cmp));
+  const bar = $("#cmpBar"); document.body.classList.toggle("has-cmp", compare.length>0);
+  if (!compare.length){ bar.hidden = true; return; }
+  bar.hidden = false;
+  bar.innerHTML = `<span>${compare.map(id=>esc(DATA.find(c=>c.id===id)?.name)).join("、")}</span><button type="button" id="cmpGo">比較 ${compare.length} 個社區</button><button type="button" class="x" id="cmpClr" aria-label="清除比較">✕</button>`;
+  $("#cmpGo").onclick = showCompare; $("#cmpClr").onclick = () => { compare = []; store.set("tc-compare", compare); syncCompare(); };
+}
+function showCompare(){
+  if (!compare.length){ toast("先在結果清單勾選「加入比較」"); return; }
+  const cs = compare.map(id=>DATA.find(c=>c.id===id)).filter(Boolean);
+  const rows = [
+    ["建商",c=>esc(c.builder)],["行政區",c=>c.district],["型態／狀態",c=>`${c.type}・${c.status}`],["屋齡",ageText],
+    ["成交單價",c=>`<b class="num" style="color:var(--price)">${c.price.unit_low}–${c.price.unit_high}</b> 萬／坪`],
+    ["房型",c=>[...new Set(c.units.map(u=>u.label))].join("<br>")],["權狀坪數",c=>{const s=c.units.map(u=>u.size_ping);return `${Math.min(...s)}–${Math.max(...s)} 坪`}],
+    ["主建物占比",c=>Math.round(c.units.reduce((a,u)=>a+u.main_ping/u.size_ping,0)/c.units.length*100)+"%"],
+    ["總戶數／棟數",c=>`${fmt(c.households)} 戶・${c.towers.length} 棟`],["樓層",c=>`地上 ${c.floors_above}／地下 ${c.floors_below}`],["梯戶比",ladder],
+    ["構造／耐震",c=>`${c.structure}・${c.seismic}`],["公設比",c=>c.public_ratio?c.public_ratio+"%":"—"],["管理費",c=>c.mgmt_fee?c.mgmt_fee+" 元／坪":"—"],
+    ["車位",c=>`${c.parking.type}${c.parking.price_wan?"・"+c.parking.price_wan+" 萬":""}`],["公設項目",c=>c.amenities.length+" 項"],
+    ["國小學區",c=>esc(c.nearby.schools[0]?.name)],["軌道交通",c=>(c.nearby.transit.find(t=>t.kind==="軌道")?`${esc(c.nearby.transit.find(t=>t.kind==="軌道").name)}（${c.nearby.transit.find(t=>t.kind==="軌道").dist_m} m）`:"—")],
+    ["土壤液化",c=>c.risks.liquefaction],["淹水潛勢",c=>c.risks.flood],["斷層距離",c=>c.risks.fault_km+" km"],
+  ];
+  const d = $("#compare");
+  d.innerHTML = `<div class="d-head"><div class="d-headin" style="padding-bottom:14px"><button class="back" type="button" id="cBack">← 回到查詢結果</button><div class="d-title"><h2>社區比較</h2><p>${cs.length} 個社區並排</p></div></div></div>
+    <div class="d-body"><div class="d-in"><div class="panel"><div class="tscroll"><table class="t ctable"><thead><tr><th></th>${cs.map(c=>`<th>${esc(c.name)}<br><button class="linkbtn" type="button" data-open="${c.id}">看詳細資料</button></th>`).join("")}</tr></thead>
+    <tbody>${rows.map(([k,f])=>`<tr><td>${k}</td>${cs.map(c=>`<td>${f(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div></div></div>`;
+  d.hidden = false; document.body.style.overflow = "hidden";
+  $("#cBack").onclick = () => { d.hidden = true; document.body.style.overflow = ""; };
+  d.querySelectorAll("[data-open]").forEach(b => b.onclick = () => { d.hidden = true; openDetail(b.dataset.open); });
+}
+
+/* ---------- 雜項 ---------- */
+function toast(t){ const el = $("#toast"); el.textContent = t; el.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(()=>el.hidden=true, 2200); }
+function copy(t){
+  const ok = () => toast("已複製連結");
+  try { navigator.clipboard.writeText(t).then(ok, () => fallbackCopy(t)); } catch(e){ fallbackCopy(t); }
+}
+function fallbackCopy(t){ const i = document.createElement("input"); i.value = t; document.body.appendChild(i); i.select(); try{document.execCommand("copy"); toast("已複製連結");}catch(e){toast("請手動複製網址列連結");} i.remove(); }
+function route(){
+  const id = location.hash.slice(1);
+  if (id && DATA.some(c=>c.id===id)) { $("#compare").hidden = true; showDetail(id); }
+  else { $("#detail").hidden = true; if (mass){ mass.stop(); mass = null; } cur = null; if ($("#compare").hidden) document.body.style.overflow = ""; }
+}
+function bind(){
+  let qt; $("#q").oninput = e => { clearTimeout(qt); qt = setTimeout(()=>{ F.q = e.target.value; update(); }, 150); };
+  $("#fBuilder").onchange = e => { F.builder = e.target.value; update(); };
+  const num = v => v === "" ? null : Math.max(0, Number(v));
+  $("#sMin").oninput = e => { F.sMin = num(e.target.value); update(); };
+  $("#sMax").oninput = e => { F.sMax = num(e.target.value); update(); };
+  $("#fPrice").oninput = e => { F.price = Number(e.target.value); $("#pOut").textContent = F.price >= 130 ? "不限" : `${F.price} 萬／坪以下`; update(); };
+  $("#sort").onchange = e => { F.sort = e.target.value; update(); };
+  $("#reset").onclick = () => { Object.assign(F,{q:"",builder:"",sMin:null,sMax:null,price:130}); ["dist","rooms","age","type","park","seis","life"].forEach(k=>F[k].clear());
+    $("#q").value=""; $("#fBuilder").value=""; $("#sMin").value=""; $("#sMax").value=""; $("#fPrice").value=130; $("#pOut").textContent="不限";
+    document.querySelectorAll(".filters .chip").forEach(b=>b.setAttribute("aria-pressed","false")); update(); };
+  $("#results").addEventListener("click", e => {
+    const cb = e.target.closest("[data-cmp]"); if (cb){ toggleCompare(cb.dataset.cmp); return; }
+    const card = e.target.closest(".card"); if (card) openDetail(card.dataset.id);
+  });
+  $("#results").addEventListener("keydown", e => { if (e.key==="Enter" && e.target.classList.contains("card")) openDetail(e.target.dataset.id); });
+  $("#results").addEventListener("mouseover", e => { const c = e.target.closest(".card"); document.querySelectorAll(".hot").forEach(x=>x.classList.remove("hot")); if (c) hot(c.dataset.id, true); });
+  $("#b3d").onclick = e => { if (!map) return; const on = e.currentTarget.getAttribute("aria-pressed")!=="true"; e.currentTarget.setAttribute("aria-pressed", on); map.easeTo({pitch:on?55:0,bearing:on?-18:0,duration:700}); };
+  $("#bFit").onclick = () => paintMap(filtered(), "anim");
+  $("#openCmp").onclick = showCompare;
+  $("#mSwitch").onclick = () => { const on = document.body.classList.toggle("show-map"); $("#mSwitch").textContent = on ? "看列表" : "看地圖"; if (on && map) setTimeout(()=>{ map.resize(); paintMap(filtered(),"anim"); }, 50); };
+  window.addEventListener("hashchange", route);
+  document.addEventListener("keydown", e => { if (e.key==="Escape"){ if(!$("#compare").hidden){ $("#compare").hidden = true; document.body.style.overflow=""; } else if(!$("#detail").hidden) closeDetail(); } });
+}
+
+fetch("data/communities.json").then(r => { if(!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
+  META = d.meta || {}; DATA = d.communities || [];
+  if (META.data_note) { $("#sampleNote").title = META.data_note; } if (!DATA.some(c=>c.sample)) $("#sampleNote").hidden = true;
+  loadAdSense(); buildFilters(); bind(); update(); syncCompare(); initMap(); route();
+}).catch(err => {
+  $("#results").innerHTML = `<div class="empty"><b>讀不到社區資料</b><span>請確認 data/communities.json 與本頁放在同一個網站資料夾，並透過網址（而非直接雙擊檔案）開啟。</span></div>`;
+});
+})();
+</script>

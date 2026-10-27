@@ -1,0 +1,4370 @@
+{
+ "meta": {
+  "site_name": "台中社區查詢",
+  "region": "臺中市",
+  "data_note": "目前全部為示範資料：社區、建商名稱與數據皆為虛構，請以貴公司建構的資料替換。",
+  "links": {
+   "price": "https://lvr.land.moi.gov.tw/",
+   "liquefaction": "https://www.liquid.net.tw/",
+   "urban": "https://www.ud.taichung.gov.tw/"
+  },
+  "ads": {
+   "show_placeholders": true,
+   "list_every": 4,
+   "adsense": {
+    "client": "",
+    "slots": {
+     "list": "",
+     "detail": ""
+    }
+   },
+   "house": [
+    {
+     "sponsor": "自售廣告範例",
+     "title": "想賣房？免費估價",
+     "text": "這是自家廣告的示範，可換成建商、代銷、裝潢或貸款業者的委刊",
+     "url": "https://example.com",
+     "image": "",
+     "slots": [
+      "list",
+      "detail"
+     ]
+    }
+   ]
+  }
+ },
+ "communities": [
+  {
+   "id": "c01",
+   "name": "禾岫・林園",
+   "sample": true,
+   "builder": "禾岫建設",
+   "contractor": "國聚營造",
+   "architect": "林昱廷建築師事務所",
+   "district": "西屯區",
+   "address": "臺中市西屯區市政北七路與惠中路口",
+   "lat": 24.1648,
+   "lng": 120.6372,
+   "type": "大樓",
+   "status": "新成屋",
+   "completed": 2021,
+   "structure": "SRC",
+   "seismic": "制震",
+   "floors_above": 28,
+   "floors_below": 5,
+   "towers": [
+    {
+     "name": "A棟",
+     "floors": 28,
+     "units_per_floor": 4,
+     "elevators": 3,
+     "w": 28,
+     "d": 18,
+     "x": -22.0,
+     "z": 0
+    },
+    {
+     "name": "B棟",
+     "floors": 28,
+     "units_per_floor": 4,
+     "elevators": 3,
+     "w": 28,
+     "d": 18,
+     "x": 22.0,
+     "z": 8
+    }
+   ],
+   "households": 216,
+   "public_ratio": 35.9,
+   "mgmt_fee": 70,
+   "property_mgmt": "國揚物業",
+   "parking": {
+    "count": 248,
+    "type": "坡道平面",
+    "price_wan": 320
+   },
+   "price": {
+    "unit_low": 68,
+    "unit_high": 82,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 65.1
+     },
+     {
+      "q": "2025Q1",
+      "unit": 64.7
+     },
+     {
+      "q": "2025Q2",
+      "unit": 64.3
+     },
+     {
+      "q": "2025Q3",
+      "unit": 64.9
+     },
+     {
+      "q": "2025Q4",
+      "unit": 66.6
+     },
+     {
+      "q": "2026Q1",
+      "unit": 66.3
+     },
+     {
+      "q": "2026Q2",
+      "unit": 66.3
+     },
+     {
+      "q": "2026Q3",
+      "unit": 67.6
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": 21,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 26,
+      "unit_price": 76.2,
+      "total_wan": 1805,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 4,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 29,
+      "unit_price": 75.8,
+      "total_wan": 1983,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 16,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 35,
+      "unit_price": 70.0,
+      "total_wan": 2189,
+      "parking": true
+     },
+     {
+      "date": "2026-07",
+      "floor": 12,
+      "unit_type": "4房2廳2衛",
+      "size_ping": 60,
+      "unit_price": 75.8,
+      "total_wan": 3989,
+      "parking": true
+     },
+     {
+      "date": "2026-06",
+      "floor": 6,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 29,
+      "unit_price": 76.1,
+      "total_wan": 2070,
+      "parking": true
+     },
+     {
+      "date": "2026-05",
+      "floor": 14,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 29,
+      "unit_price": 69.4,
+      "total_wan": 1910,
+      "parking": true
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c01-2A",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 26,
+     "main_ping": 16.6,
+     "balcony_ping": 1.3,
+     "count": 36,
+     "plan": null,
+     "layout": "r2",
+     "facing": "坐西朝東"
+    },
+    {
+     "id": "c01-2B",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 29,
+     "main_ping": 18.6,
+     "balcony_ping": 1.5,
+     "count": 36,
+     "plan": null,
+     "layout": "r2w",
+     "facing": "坐北朝南"
+    },
+    {
+     "id": "c01-3A",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 35,
+     "main_ping": 22.8,
+     "balcony_ping": 1.8,
+     "count": 36,
+     "plan": null,
+     "layout": "r3",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c01-3B",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 42,
+     "main_ping": 27.3,
+     "balcony_ping": 2.1,
+     "count": 36,
+     "plan": null,
+     "layout": "r3w",
+     "facing": "坐北朝南"
+    },
+    {
+     "id": "c01-4A",
+     "label": "4房2廳2衛",
+     "rooms": 4,
+     "size_ping": 60,
+     "main_ping": 39.6,
+     "balcony_ping": 3.0,
+     "count": 36,
+     "plan": null,
+     "layout": "r4",
+     "facing": "坐北朝南"
+    },
+    {
+     "id": "c01-4B",
+     "label": "4房2廳2衛",
+     "rooms": 4,
+     "size_ping": 66,
+     "main_ping": 43.6,
+     "balcony_ping": 3.3,
+     "count": 36,
+     "plan": null,
+     "layout": "r4w",
+     "facing": "坐北朝南"
+    }
+   ],
+   "permit": {
+    "build_no": "107中都建字第04318號",
+    "build_date": "107-02-19",
+    "use_no": "110中都使字第02270號",
+    "use_date": "110-12-02",
+    "zoning": "第五種住宅區（市地重劃區）",
+    "site_area_m2": 2306.0,
+    "coverage_pct": 45.4,
+    "far_pct": 280,
+    "use": "集合住宅",
+    "floor_area_m2": 8301.6
+   },
+   "amenities": [
+    "健身房",
+    "閱覽室",
+    "兒童遊戲室",
+    "洗衣間",
+    "共享工作室",
+    "屋頂 BBQ 平台",
+    "空中花園",
+    "24 小時保全",
+    "交誼廳",
+    "寵物美容室"
+   ],
+   "materials": {
+    "exterior": "花崗石＋鋁格柵",
+    "window": "LIXIL 防颱氣密窗",
+    "kitchen": "林內三機＋人造石檯面",
+    "bath": "KOHLER 衛浴",
+    "flooring": "超耐磨木地板（臥室）＋石英磚",
+    "doors": "防火防盜大門＋電子鎖"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "惠文國小",
+      "kind": "國小學區",
+      "dist_m": 281
+     },
+     {
+      "name": "福科國中",
+      "kind": "國中學區",
+      "dist_m": 1351
+     }
+    ],
+    "transit": [
+     {
+      "name": "台中捷運綠線 市政府站",
+      "kind": "軌道",
+      "dist_m": 883
+     },
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 96
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 2126
+     }
+    ],
+    "shopping": [
+     {
+      "name": "秀泰生活台中文心店",
+      "kind": "商圈",
+      "dist_m": 1300
+     },
+     {
+      "name": "新光三越台中中港店",
+      "kind": "商圈",
+      "dist_m": 1940
+     }
+    ],
+    "parks": [
+     {
+      "name": "惠文公園",
+      "kind": "公園",
+      "dist_m": 321
+     },
+     {
+      "name": "秋紅谷生態公園",
+      "kind": "公園",
+      "dist_m": 476
+     }
+    ],
+    "medical": [
+     {
+      "name": "中國醫藥大學附設醫院（台中分院）",
+      "kind": "醫院",
+      "dist_m": 943
+     }
+    ],
+    "markets": [
+     {
+      "name": "黎明市場",
+      "kind": "市場",
+      "dist_m": 1114
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "低潛勢",
+    "flood": "無淹水潛勢",
+    "fault_km": 9.0,
+    "fault_name": "車籠埔斷層",
+    "avoid": [
+     {
+      "name": "加油站",
+      "dist_m": 266
+     }
+    ],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（107中都建字第04318號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照存根",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "距市政府站 步行可達",
+    "制震結構",
+    "坡道平面車位",
+    "屋齡 5 年內",
+    "惠文國小學區"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "c02",
+   "name": "澄峰・觀邸",
+   "sample": true,
+   "builder": "澄峰開發",
+   "contractor": "新泰營造",
+   "architect": "陳柏宇建築師事務所",
+   "district": "南屯區",
+   "address": "臺中市南屯區文心南三路一段",
+   "lat": 24.1427,
+   "lng": 120.6448,
+   "type": "大樓",
+   "status": "成屋",
+   "completed": 2017,
+   "structure": "RC",
+   "seismic": "一般",
+   "floors_above": 22,
+   "floors_below": 4,
+   "towers": [
+    {
+     "name": "A棟",
+     "floors": 22,
+     "units_per_floor": 6,
+     "elevators": 3,
+     "w": 38,
+     "d": 22,
+     "x": 0.0,
+     "z": 0
+    }
+   ],
+   "households": 126,
+   "public_ratio": 31.1,
+   "mgmt_fee": 65,
+   "property_mgmt": "中興保全物業",
+   "parking": {
+    "count": 144,
+    "type": "坡道平面",
+    "price_wan": 280
+   },
+   "price": {
+    "unit_low": 46,
+    "unit_high": 55,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 44.1
+     },
+     {
+      "q": "2025Q1",
+      "unit": 44.6
+     },
+     {
+      "q": "2025Q2",
+      "unit": 44.8
+     },
+     {
+      "q": "2025Q3",
+      "unit": 45.9
+     },
+     {
+      "q": "2025Q4",
+      "unit": 46.9
+     },
+     {
+      "q": "2026Q1",
+      "unit": 46.9
+     },
+     {
+      "q": "2026Q2",
+      "unit": 47.7
+     },
+     {
+      "q": "2026Q3",
+      "unit": 48.3
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": 17,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 41,
+      "unit_price": 48.6,
+      "total_wan": 1814,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 19,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 24,
+      "unit_price": 49.8,
+      "total_wan": 1200,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 18,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 32,
+      "unit_price": 49.8,
+      "total_wan": 1567,
+      "parking": true
+     },
+     {
+      "date": "2026-07",
+      "floor": 20,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 24,
+      "unit_price": 51.2,
+      "total_wan": 1228,
+      "parking": true
+     },
+     {
+      "date": "2026-06",
+      "floor": 14,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 41,
+      "unit_price": 51.3,
+      "total_wan": 1985,
+      "parking": true
+     },
+     {
+      "date": "2026-05",
+      "floor": 5,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 47,
+      "unit_price": 53.6,
+      "total_wan": 2286,
+      "parking": true
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c02-2A",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 24,
+     "main_ping": 15.4,
+     "balcony_ping": 1.2,
+     "count": 31,
+     "plan": null,
+     "layout": "r2",
+     "facing": "坐北朝南"
+    },
+    {
+     "id": "c02-2B",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 32,
+     "main_ping": 20.5,
+     "balcony_ping": 1.6,
+     "count": 31,
+     "plan": null,
+     "layout": "r2w",
+     "facing": "坐東朝西"
+    },
+    {
+     "id": "c02-3A",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 41,
+     "main_ping": 26.7,
+     "balcony_ping": 2.1,
+     "count": 31,
+     "plan": null,
+     "layout": "r3",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c02-3B",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 47,
+     "main_ping": 30.6,
+     "balcony_ping": 2.4,
+     "count": 31,
+     "plan": null,
+     "layout": "r3w",
+     "facing": "坐西朝東"
+    }
+   ],
+   "permit": {
+    "build_no": "103中都建字第08470號",
+    "build_date": "103-01-10",
+    "use_no": "106中都使字第03896號",
+    "use_date": "106-12-07",
+    "zoning": "第一種住宅區",
+    "site_area_m2": 5001.5,
+    "coverage_pct": 38.3,
+    "far_pct": 400,
+    "use": "集合住宅",
+    "floor_area_m2": 18005.4
+   },
+   "amenities": [
+    "健身房",
+    "共享工作室",
+    "室內恆溫泳池",
+    "屋頂 BBQ 平台",
+    "寵物美容室",
+    "瑜珈教室",
+    "宴會廳",
+    "視聽室",
+    "空中花園",
+    "洗衣間"
+   ],
+   "materials": {
+    "exterior": "丁掛磚＋塗料",
+    "window": "LIXIL 防颱氣密窗",
+    "kitchen": "Panasonic 三機",
+    "bath": "TOTO 衛浴",
+    "flooring": "超耐磨木地板（臥室）＋石英磚",
+    "doors": "防火防盜大門"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "大新國小",
+      "kind": "國小學區",
+      "dist_m": 435
+     },
+     {
+      "name": "大業國中",
+      "kind": "國中學區",
+      "dist_m": 1400
+     }
+    ],
+    "transit": [
+     {
+      "name": "台中捷運綠線 南屯站",
+      "kind": "軌道",
+      "dist_m": 826
+     },
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 111
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 1552
+     }
+    ],
+    "shopping": [
+     {
+      "name": "大遠百",
+      "kind": "商圈",
+      "dist_m": 1850
+     },
+     {
+      "name": "IKEA 台中南屯店",
+      "kind": "商圈",
+      "dist_m": 2031
+     }
+    ],
+    "parks": [
+     {
+      "name": "文心森林公園",
+      "kind": "公園",
+      "dist_m": 1061
+     },
+     {
+      "name": "豐樂雕塑公園",
+      "kind": "公園",
+      "dist_m": 257
+     }
+    ],
+    "medical": [
+     {
+      "name": "林新醫院",
+      "kind": "醫院",
+      "dist_m": 3212
+     }
+    ],
+    "markets": [
+     {
+      "name": "南屯市場",
+      "kind": "市場",
+      "dist_m": 1529
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "低潛勢",
+    "flood": "無淹水潛勢",
+    "fault_km": 9.0,
+    "fault_name": "車籠埔斷層",
+    "avoid": [
+     {
+      "name": "加油站",
+      "dist_m": 323
+     }
+    ],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（103中都建字第08470號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照存根",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "距南屯站 步行可達",
+    "坡道平面車位",
+    "大新國小學區"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "c03",
+   "name": "沐川・水湳綠境",
+   "sample": true,
+   "builder": "沐川建設",
+   "contractor": "大河營造",
+   "architect": "吳承翰建築師事務所",
+   "district": "北屯區",
+   "address": "臺中市北屯區中科路與經貿路口",
+   "lat": 24.1835,
+   "lng": 120.6531,
+   "type": "大樓",
+   "status": "預售",
+   "completed": 2027,
+   "structure": "SRC",
+   "seismic": "隔震",
+   "floors_above": 31,
+   "floors_below": 6,
+   "towers": [
+    {
+     "name": "A棟",
+     "floors": 31,
+     "units_per_floor": 4,
+     "elevators": 4,
+     "w": 28,
+     "d": 18,
+     "x": -44.0,
+     "z": 0
+    },
+    {
+     "name": "B棟",
+     "floors": 31,
+     "units_per_floor": 4,
+     "elevators": 4,
+     "w": 28,
+     "d": 18,
+     "x": 0.0,
+     "z": 8
+    },
+    {
+     "name": "C棟",
+     "floors": 24,
+     "units_per_floor": 6,
+     "elevators": 3,
+     "w": 38,
+     "d": 22,
+     "x": 54.0,
+     "z": 0
+    }
+   ],
+   "households": 378,
+   "public_ratio": 34.4,
+   "mgmt_fee": 75,
+   "property_mgmt": "中興保全物業",
+   "parking": {
+    "count": 434,
+    "type": "坡道平面",
+    "price_wan": 280
+   },
+   "price": {
+    "unit_low": 72,
+    "unit_high": 90,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 70.9
+     },
+     {
+      "q": "2025Q1",
+      "unit": 71.7
+     },
+     {
+      "q": "2025Q2",
+      "unit": 71.7
+     },
+     {
+      "q": "2025Q3",
+      "unit": 71.9
+     },
+     {
+      "q": "2025Q4",
+      "unit": 73.6
+     },
+     {
+      "q": "2026Q1",
+      "unit": 74.2
+     },
+     {
+      "q": "2026Q2",
+      "unit": 76.5
+     },
+     {
+      "q": "2026Q3",
+      "unit": 77.5
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": 17,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 28,
+      "unit_price": 79.2,
+      "total_wan": 2038,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 29,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 28,
+      "unit_price": 79.7,
+      "total_wan": 2090,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 25,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 41,
+      "unit_price": 79.5,
+      "total_wan": 2893,
+      "parking": true
+     },
+     {
+      "date": "2026-07",
+      "floor": 15,
+      "unit_type": "4房2廳2衛",
+      "size_ping": 70,
+      "unit_price": 89.2,
+      "total_wan": 5300,
+      "parking": true
+     },
+     {
+      "date": "2026-06",
+      "floor": 8,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 27,
+      "unit_price": 74.7,
+      "total_wan": 1914,
+      "parking": true
+     },
+     {
+      "date": "2026-05",
+      "floor": 3,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 28,
+      "unit_price": 80.7,
+      "total_wan": 2113,
+      "parking": true
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c03-2A",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 27,
+     "main_ping": 17.3,
+     "balcony_ping": 1.4,
+     "count": 63,
+     "plan": null,
+     "layout": "r2",
+     "facing": "坐北朝南"
+    },
+    {
+     "id": "c03-2B",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 28,
+     "main_ping": 17.9,
+     "balcony_ping": 1.4,
+     "count": 63,
+     "plan": null,
+     "layout": "r2w",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c03-3A",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 41,
+     "main_ping": 26.7,
+     "balcony_ping": 2.1,
+     "count": 63,
+     "plan": null,
+     "layout": "r3",
+     "facing": "坐西朝東"
+    },
+    {
+     "id": "c03-3B",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 45,
+     "main_ping": 29.2,
+     "balcony_ping": 2.2,
+     "count": 63,
+     "plan": null,
+     "layout": "r3w",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c03-4A",
+     "label": "4房2廳2衛",
+     "rooms": 4,
+     "size_ping": 52,
+     "main_ping": 34.3,
+     "balcony_ping": 2.6,
+     "count": 63,
+     "plan": null,
+     "layout": "r4",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c03-4B",
+     "label": "4房2廳2衛",
+     "rooms": 4,
+     "size_ping": 70,
+     "main_ping": 46.2,
+     "balcony_ping": 3.5,
+     "count": 63,
+     "plan": null,
+     "layout": "r4w",
+     "facing": "坐東朝西"
+    }
+   ],
+   "permit": {
+    "build_no": "112中都建字第05355號",
+    "build_date": "112-02-18",
+    "use_no": "尚未取得",
+    "use_date": "—",
+    "zoning": "第三種住宅區",
+    "site_area_m2": 4194.8,
+    "coverage_pct": 44.9,
+    "far_pct": 350,
+    "use": "集合住宅",
+    "floor_area_m2": 15101.3
+   },
+   "amenities": [
+    "健身房",
+    "KTV 室",
+    "瑜珈教室",
+    "戶外游泳池",
+    "共享工作室",
+    "屋頂 BBQ 平台",
+    "宴會廳",
+    "室內恆溫泳池",
+    "閱覽室"
+   ],
+   "materials": {
+    "exterior": "玻璃帷幕＋金屬板",
+    "window": "LIXIL 防颱氣密窗",
+    "kitchen": "林內三機＋人造石檯面",
+    "bath": "TOTO 衛浴",
+    "flooring": "木紋石英磚",
+    "doors": "防火防盜大門＋電子鎖"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "僑孝國小",
+      "kind": "國小學區",
+      "dist_m": 663
+     },
+     {
+      "name": "四張犁國中",
+      "kind": "國中學區",
+      "dist_m": 1337
+     }
+    ],
+    "transit": [
+     {
+      "name": "台中捷運綠線 文華高中站",
+      "kind": "軌道",
+      "dist_m": 573
+     },
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 158
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 3068
+     }
+    ],
+    "shopping": [
+     {
+      "name": "好市多北台中店",
+      "kind": "商圈",
+      "dist_m": 1251
+     },
+     {
+      "name": "水湳智慧城商場",
+      "kind": "商圈",
+      "dist_m": 1136
+     }
+    ],
+    "parks": [
+     {
+      "name": "中央公園",
+      "kind": "公園",
+      "dist_m": 494
+     },
+     {
+      "name": "軍功水資源公園",
+      "kind": "公園",
+      "dist_m": 221
+     }
+    ],
+    "medical": [
+     {
+      "name": "台中榮總",
+      "kind": "醫院",
+      "dist_m": 1570
+     }
+    ],
+    "markets": [
+     {
+      "name": "北屯市場",
+      "kind": "市場",
+      "dist_m": 1480
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "低潛勢",
+    "flood": "無淹水潛勢",
+    "fault_km": 5.8,
+    "fault_name": "車籠埔斷層",
+    "avoid": [
+     {
+      "name": "加油站",
+      "dist_m": 324
+     }
+    ],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（112中都建字第05355號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照（尚未取得）",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "距文華高中站 步行可達",
+    "隔震結構",
+    "坡道平面車位",
+    "預售可客變",
+    "僑孝國小學區"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "c04",
+   "name": "栩和・豐樂院",
+   "sample": true,
+   "builder": "栩和建設",
+   "contractor": "宏昌營造",
+   "architect": "黃立安建築師事務所",
+   "district": "南屯區",
+   "address": "臺中市南屯區豐樂路二段",
+   "lat": 24.1318,
+   "lng": 120.6512,
+   "type": "華廈",
+   "status": "成屋",
+   "completed": 2012,
+   "structure": "RC",
+   "seismic": "一般",
+   "floors_above": 12,
+   "floors_below": 2,
+   "towers": [
+    {
+     "name": "A棟",
+     "floors": 12,
+     "units_per_floor": 4,
+     "elevators": 2,
+     "w": 28,
+     "d": 18,
+     "x": 0.0,
+     "z": 0
+    }
+   ],
+   "households": 48,
+   "public_ratio": 25.2,
+   "mgmt_fee": 65,
+   "property_mgmt": "中興保全物業",
+   "parking": {
+    "count": 55,
+    "type": "機械",
+    "price_wan": 150
+   },
+   "price": {
+    "unit_low": 33,
+    "unit_high": 39,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 32.0
+     },
+     {
+      "q": "2025Q1",
+      "unit": 32.7
+     },
+     {
+      "q": "2025Q2",
+      "unit": 33.1
+     },
+     {
+      "q": "2025Q3",
+      "unit": 33.7
+     },
+     {
+      "q": "2025Q4",
+      "unit": 34.4
+     },
+     {
+      "q": "2026Q1",
+      "unit": 34.1
+     },
+     {
+      "q": "2026Q2",
+      "unit": 35.1
+     },
+     {
+      "q": "2026Q3",
+      "unit": 36.0
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": 9,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 47,
+      "unit_price": 35.4,
+      "total_wan": 1544,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 9,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 47,
+      "unit_price": 33.4,
+      "total_wan": 1467,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 10,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 30,
+      "unit_price": 34.0,
+      "total_wan": 1056,
+      "parking": true
+     },
+     {
+      "date": "2026-07",
+      "floor": 4,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 25,
+      "unit_price": 33.0,
+      "total_wan": 856,
+      "parking": true
+     },
+     {
+      "date": "2026-06",
+      "floor": 8,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 25,
+      "unit_price": 36.7,
+      "total_wan": 932,
+      "parking": true
+     },
+     {
+      "date": "2026-05",
+      "floor": 9,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 30,
+      "unit_price": 33.9,
+      "total_wan": 1054,
+      "parking": true
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c04-2A",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 25,
+     "main_ping": 16.0,
+     "balcony_ping": 1.2,
+     "count": 12,
+     "plan": null,
+     "layout": "r2",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c04-2B",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 30,
+     "main_ping": 19.2,
+     "balcony_ping": 1.5,
+     "count": 12,
+     "plan": null,
+     "layout": "r2w",
+     "facing": "坐北朝南"
+    },
+    {
+     "id": "c04-3A",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 36,
+     "main_ping": 23.4,
+     "balcony_ping": 1.8,
+     "count": 12,
+     "plan": null,
+     "layout": "r3",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c04-3B",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 47,
+     "main_ping": 30.6,
+     "balcony_ping": 2.4,
+     "count": 12,
+     "plan": null,
+     "layout": "r3w",
+     "facing": "坐南朝北"
+    }
+   ],
+   "permit": {
+    "build_no": "98中都建字第09887號",
+    "build_date": "98-03-11",
+    "use_no": "101中都使字第02087號",
+    "use_date": "101-12-08",
+    "zoning": "第一種住宅區",
+    "site_area_m2": 4743.7,
+    "coverage_pct": 36.7,
+    "far_pct": 225,
+    "use": "集合住宅",
+    "floor_area_m2": 17077.3
+   },
+   "amenities": [
+    "24 小時保全",
+    "健身房",
+    "室內恆溫泳池",
+    "兒童遊戲室"
+   ],
+   "materials": {
+    "exterior": "丁掛磚＋塗料",
+    "window": "YKK 氣密窗",
+    "kitchen": "林內三機＋人造石檯面",
+    "bath": "KOHLER 衛浴",
+    "flooring": "木紋石英磚",
+    "doors": "防火防盜大門"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "豐樂國小",
+      "kind": "國小學區",
+      "dist_m": 689
+     },
+     {
+      "name": "大業國中",
+      "kind": "國中學區",
+      "dist_m": 1497
+     }
+    ],
+    "transit": [
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 138
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 3865
+     }
+    ],
+    "shopping": [
+     {
+      "name": "大遠百",
+      "kind": "商圈",
+      "dist_m": 1276
+     },
+     {
+      "name": "IKEA 台中南屯店",
+      "kind": "商圈",
+      "dist_m": 1828
+     }
+    ],
+    "parks": [
+     {
+      "name": "文心森林公園",
+      "kind": "公園",
+      "dist_m": 1443
+     },
+     {
+      "name": "豐樂雕塑公園",
+      "kind": "公園",
+      "dist_m": 1349
+     }
+    ],
+    "medical": [
+     {
+      "name": "林新醫院",
+      "kind": "醫院",
+      "dist_m": 3576
+     }
+    ],
+    "markets": [
+     {
+      "name": "南屯市場",
+      "kind": "市場",
+      "dist_m": 1155
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "低潛勢",
+    "flood": "無淹水潛勢",
+    "fault_km": 9.0,
+    "fault_name": "車籠埔斷層",
+    "avoid": [
+     {
+      "name": "加油站",
+      "dist_m": 294
+     }
+    ],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（98中都建字第09887號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照存根",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "豐樂國小學區"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "c05",
+   "name": "嶺序・文心苑",
+   "sample": true,
+   "builder": "嶺序建設",
+   "contractor": "國聚營造",
+   "architect": "林昱廷建築師事務所",
+   "district": "北屯區",
+   "address": "臺中市北屯區文心路四段與崇德路口",
+   "lat": 24.1735,
+   "lng": 120.6853,
+   "type": "大樓",
+   "status": "成屋",
+   "completed": 2019,
+   "structure": "RC",
+   "seismic": "制震",
+   "floors_above": 26,
+   "floors_below": 4,
+   "towers": [
+    {
+     "name": "A棟",
+     "floors": 26,
+     "units_per_floor": 5,
+     "elevators": 3,
+     "w": 28,
+     "d": 22,
+     "x": -22.0,
+     "z": 0
+    },
+    {
+     "name": "B棟",
+     "floors": 26,
+     "units_per_floor": 5,
+     "elevators": 3,
+     "w": 28,
+     "d": 22,
+     "x": 22.0,
+     "z": 8
+    }
+   ],
+   "households": 250,
+   "public_ratio": 32.8,
+   "mgmt_fee": 80,
+   "property_mgmt": "國揚物業",
+   "parking": {
+    "count": 287,
+    "type": "坡道平面",
+    "price_wan": 320
+   },
+   "price": {
+    "unit_low": 42,
+    "unit_high": 50,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 40.0
+     },
+     {
+      "q": "2025Q1",
+      "unit": 40.2
+     },
+     {
+      "q": "2025Q2",
+      "unit": 40.0
+     },
+     {
+      "q": "2025Q3",
+      "unit": 41.0
+     },
+     {
+      "q": "2025Q4",
+      "unit": 41.9
+     },
+     {
+      "q": "2026Q1",
+      "unit": 42.4
+     },
+     {
+      "q": "2026Q2",
+      "unit": 43.3
+     },
+     {
+      "q": "2026Q3",
+      "unit": 43.9
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": 19,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 32,
+      "unit_price": 44.9,
+      "total_wan": 1438,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 19,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 26,
+      "unit_price": 44.4,
+      "total_wan": 1207,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 25,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 26,
+      "unit_price": 48.8,
+      "total_wan": 1300,
+      "parking": true
+     },
+     {
+      "date": "2026-07",
+      "floor": 8,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 35,
+      "unit_price": 44.8,
+      "total_wan": 1466,
+      "parking": true
+     },
+     {
+      "date": "2026-06",
+      "floor": 23,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 35,
+      "unit_price": 43.8,
+      "total_wan": 1437,
+      "parking": true
+     },
+     {
+      "date": "2026-05",
+      "floor": 15,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 32,
+      "unit_price": 47.9,
+      "total_wan": 1437,
+      "parking": true
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c05-2A",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 26,
+     "main_ping": 16.6,
+     "balcony_ping": 1.3,
+     "count": 62,
+     "plan": null,
+     "layout": "r2",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c05-2B",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 32,
+     "main_ping": 20.5,
+     "balcony_ping": 1.6,
+     "count": 62,
+     "plan": null,
+     "layout": "r2w",
+     "facing": "坐西朝東"
+    },
+    {
+     "id": "c05-3A",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 35,
+     "main_ping": 22.8,
+     "balcony_ping": 1.8,
+     "count": 62,
+     "plan": null,
+     "layout": "r3",
+     "facing": "坐西朝東"
+    },
+    {
+     "id": "c05-3B",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 42,
+     "main_ping": 27.3,
+     "balcony_ping": 2.1,
+     "count": 62,
+     "plan": null,
+     "layout": "r3w",
+     "facing": "坐西朝東"
+    }
+   ],
+   "permit": {
+    "build_no": "105中都建字第06323號",
+    "build_date": "105-01-16",
+    "use_no": "108中都使字第05327號",
+    "use_date": "108-11-07",
+    "zoning": "第三種住宅區",
+    "site_area_m2": 3079.0,
+    "coverage_pct": 33.7,
+    "far_pct": 350,
+    "use": "集合住宅",
+    "floor_area_m2": 11084.4
+   },
+   "amenities": [
+    "視聽室",
+    "室內恆溫泳池",
+    "寵物美容室",
+    "屋頂 BBQ 平台",
+    "包裹收發室",
+    "共享工作室",
+    "KTV 室",
+    "健身房",
+    "24 小時保全",
+    "宴會廳"
+   ],
+   "materials": {
+    "exterior": "丁掛磚＋塗料",
+    "window": "LIXIL 防颱氣密窗",
+    "kitchen": "櫻花三機",
+    "bath": "HCG 衛浴",
+    "flooring": "木紋石英磚",
+    "doors": "防火防盜大門＋電子鎖"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "文心國小",
+      "kind": "國小學區",
+      "dist_m": 642
+     },
+     {
+      "name": "四張犁國中",
+      "kind": "國中學區",
+      "dist_m": 1367
+     }
+    ],
+    "transit": [
+     {
+      "name": "台中捷運綠線 文心崇德站",
+      "kind": "軌道",
+      "dist_m": 844
+     },
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 172
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 3172
+     }
+    ],
+    "shopping": [
+     {
+      "name": "好市多北台中店",
+      "kind": "商圈",
+      "dist_m": 1819
+     },
+     {
+      "name": "水湳智慧城商場",
+      "kind": "商圈",
+      "dist_m": 1584
+     }
+    ],
+    "parks": [
+     {
+      "name": "中央公園",
+      "kind": "公園",
+      "dist_m": 1446
+     },
+     {
+      "name": "軍功水資源公園",
+      "kind": "公園",
+      "dist_m": 546
+     }
+    ],
+    "medical": [
+     {
+      "name": "台中榮總",
+      "kind": "醫院",
+      "dist_m": 3519
+     }
+    ],
+    "markets": [
+     {
+      "name": "北屯市場",
+      "kind": "市場",
+      "dist_m": 852
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "低潛勢",
+    "flood": "無淹水潛勢",
+    "fault_km": 5.8,
+    "fault_name": "車籠埔斷層",
+    "avoid": [],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（105中都建字第06323號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照存根",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "距文心崇德站 步行可達",
+    "制震結構",
+    "坡道平面車位",
+    "文心國小學區"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "c06",
+   "name": "禾岫・綠園道",
+   "sample": true,
+   "builder": "禾岫建設",
+   "contractor": "國聚營造",
+   "architect": "吳承翰建築師事務所",
+   "district": "西區",
+   "address": "臺中市西區公益路與五權西路口",
+   "lat": 24.1489,
+   "lng": 120.6573,
+   "type": "大樓",
+   "status": "新成屋",
+   "completed": 2023,
+   "structure": "SRC",
+   "seismic": "制震",
+   "floors_above": 30,
+   "floors_below": 5,
+   "towers": [
+    {
+     "name": "A棟",
+     "floors": 30,
+     "units_per_floor": 3,
+     "elevators": 3,
+     "w": 22,
+     "d": 18,
+     "x": 0.0,
+     "z": 0
+    }
+   ],
+   "households": 87,
+   "public_ratio": 35.2,
+   "mgmt_fee": 65,
+   "property_mgmt": "國揚物業",
+   "parking": {
+    "count": 100,
+    "type": "坡道平面",
+    "price_wan": 280
+   },
+   "price": {
+    "unit_low": 78,
+    "unit_high": 96,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 74.9
+     },
+     {
+      "q": "2025Q1",
+      "unit": 76.5
+     },
+     {
+      "q": "2025Q2",
+      "unit": 79.1
+     },
+     {
+      "q": "2025Q3",
+      "unit": 79.9
+     },
+     {
+      "q": "2025Q4",
+      "unit": 82.4
+     },
+     {
+      "q": "2026Q1",
+      "unit": 85.3
+     },
+     {
+      "q": "2026Q2",
+      "unit": 88.1
+     },
+     {
+      "q": "2026Q3",
+      "unit": 88.6
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": 6,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 48,
+      "unit_price": 82.1,
+      "total_wan": 3411,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 9,
+      "unit_type": "4房2廳2衛",
+      "size_ping": 52,
+      "unit_price": 86.7,
+      "total_wan": 3957,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 18,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 37,
+      "unit_price": 94.4,
+      "total_wan": 3084,
+      "parking": true
+     },
+     {
+      "date": "2026-07",
+      "floor": 29,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 37,
+      "unit_price": 89.9,
+      "total_wan": 2948,
+      "parking": true
+     },
+     {
+      "date": "2026-06",
+      "floor": 18,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 48,
+      "unit_price": 94.0,
+      "total_wan": 3920,
+      "parking": true
+     },
+     {
+      "date": "2026-05",
+      "floor": 5,
+      "unit_type": "4房2廳2衛",
+      "size_ping": 52,
+      "unit_price": 92.4,
+      "total_wan": 4200,
+      "parking": true
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c06-3A",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 37,
+     "main_ping": 24.1,
+     "balcony_ping": 1.9,
+     "count": 21,
+     "plan": null,
+     "layout": "r3",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c06-3B",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 48,
+     "main_ping": 31.2,
+     "balcony_ping": 2.4,
+     "count": 21,
+     "plan": null,
+     "layout": "r3w",
+     "facing": "坐北朝南"
+    },
+    {
+     "id": "c06-4A",
+     "label": "4房2廳2衛",
+     "rooms": 4,
+     "size_ping": 52,
+     "main_ping": 34.3,
+     "balcony_ping": 2.6,
+     "count": 21,
+     "plan": null,
+     "layout": "r4",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c06-4B",
+     "label": "4房2廳2衛",
+     "rooms": 4,
+     "size_ping": 75,
+     "main_ping": 49.5,
+     "balcony_ping": 3.8,
+     "count": 21,
+     "plan": null,
+     "layout": "r4w",
+     "facing": "坐西朝東"
+    }
+   ],
+   "permit": {
+    "build_no": "109中都建字第08128號",
+    "build_date": "109-04-18",
+    "use_no": "112中都使字第03356號",
+    "use_date": "112-10-08",
+    "zoning": "第一種住宅區",
+    "site_area_m2": 4058.5,
+    "coverage_pct": 44.2,
+    "far_pct": 225,
+    "use": "集合住宅",
+    "floor_area_m2": 14610.6
+   },
+   "amenities": [
+    "視聽室",
+    "包裹收發室",
+    "共享工作室",
+    "汽車充電車位",
+    "屋頂 BBQ 平台",
+    "瑜珈教室",
+    "健身房",
+    "KTV 室",
+    "閱覽室",
+    "24 小時保全"
+   ],
+   "materials": {
+    "exterior": "二丁掛磁磚＋石材",
+    "window": "國產氣密隔音窗",
+    "kitchen": "林內三機＋人造石檯面",
+    "bath": "KOHLER 衛浴",
+    "flooring": "超耐磨木地板（臥室）＋石英磚",
+    "doors": "防火防盜大門＋電子鎖"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "忠信國小",
+      "kind": "國小學區",
+      "dist_m": 564
+     },
+     {
+      "name": "居仁國中",
+      "kind": "國中學區",
+      "dist_m": 597
+     }
+    ],
+    "transit": [
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 117
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 1908
+     }
+    ],
+    "shopping": [
+     {
+      "name": "勤美誠品綠園道",
+      "kind": "商圈",
+      "dist_m": 2389
+     },
+     {
+      "name": "草悟道商圈",
+      "kind": "商圈",
+      "dist_m": 1806
+     }
+    ],
+    "parks": [
+     {
+      "name": "草悟道",
+      "kind": "公園",
+      "dist_m": 769
+     },
+     {
+      "name": "美術園道",
+      "kind": "公園",
+      "dist_m": 545
+     }
+    ],
+    "medical": [
+     {
+      "name": "澄清醫院",
+      "kind": "醫院",
+      "dist_m": 3971
+     }
+    ],
+    "markets": [
+     {
+      "name": "第二市場",
+      "kind": "市場",
+      "dist_m": 1294
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "低潛勢",
+    "flood": "無淹水潛勢",
+    "fault_km": 9.0,
+    "fault_name": "車籠埔斷層",
+    "avoid": [
+     {
+      "name": "加油站",
+      "dist_m": 376
+     }
+    ],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（109中都建字第08128號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照存根",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "制震結構",
+    "坡道平面車位",
+    "屋齡 5 年內",
+    "忠信國小學區"
+   ],
+   "updated": "2026-10-20",
+   "sponsored": true
+  },
+  {
+   "id": "c07",
+   "name": "澄峰・太平學府",
+   "sample": true,
+   "builder": "澄峰開發",
+   "contractor": "新泰營造",
+   "architect": "陳柏宇建築師事務所",
+   "district": "太平區",
+   "address": "臺中市太平區中山路二段",
+   "lat": 24.1336,
+   "lng": 120.7187,
+   "type": "大樓",
+   "status": "成屋",
+   "completed": 2020,
+   "structure": "RC",
+   "seismic": "一般",
+   "floors_above": 17,
+   "floors_below": 3,
+   "towers": [
+    {
+     "name": "A棟",
+     "floors": 17,
+     "units_per_floor": 8,
+     "elevators": 3,
+     "w": 38,
+     "d": 22,
+     "x": -27.0,
+     "z": 0
+    },
+    {
+     "name": "B棟",
+     "floors": 17,
+     "units_per_floor": 8,
+     "elevators": 3,
+     "w": 38,
+     "d": 22,
+     "x": 27.0,
+     "z": 8
+    }
+   ],
+   "households": 256,
+   "public_ratio": 35.5,
+   "mgmt_fee": 75,
+   "property_mgmt": "新光保全物業",
+   "parking": {
+    "count": 294,
+    "type": "坡道平面",
+    "price_wan": 220
+   },
+   "price": {
+    "unit_low": 27,
+    "unit_high": 32,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 25.9
+     },
+     {
+      "q": "2025Q1",
+      "unit": 26.0
+     },
+     {
+      "q": "2025Q2",
+      "unit": 26.4
+     },
+     {
+      "q": "2025Q3",
+      "unit": 26.3
+     },
+     {
+      "q": "2025Q4",
+      "unit": 26.0
+     },
+     {
+      "q": "2026Q1",
+      "unit": 26.9
+     },
+     {
+      "q": "2026Q2",
+      "unit": 27.4
+     },
+     {
+      "q": "2026Q3",
+      "unit": 27.8
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": 9,
+      "unit_type": "1房1廳1衛",
+      "size_ping": 20,
+      "unit_price": 31.9,
+      "total_wan": 703,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 3,
+      "unit_type": "1房1廳1衛",
+      "size_ping": 20,
+      "unit_price": 28.3,
+      "total_wan": 684,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 6,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 36,
+      "unit_price": 30.8,
+      "total_wan": 1129,
+      "parking": true
+     },
+     {
+      "date": "2026-07",
+      "floor": 11,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 25,
+      "unit_price": 29.1,
+      "total_wan": 777,
+      "parking": true
+     },
+     {
+      "date": "2026-06",
+      "floor": 14,
+      "unit_type": "1房1廳1衛",
+      "size_ping": 17,
+      "unit_price": 28.8,
+      "total_wan": 621,
+      "parking": true
+     },
+     {
+      "date": "2026-05",
+      "floor": 12,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 48,
+      "unit_price": 31.1,
+      "total_wan": 1484,
+      "parking": true
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c07-1A",
+     "label": "1房1廳1衛",
+     "rooms": 1,
+     "size_ping": 17,
+     "main_ping": 10.5,
+     "balcony_ping": 0.9,
+     "count": 42,
+     "plan": null,
+     "layout": "r1",
+     "facing": "坐西朝東"
+    },
+    {
+     "id": "c07-1B",
+     "label": "1房1廳1衛",
+     "rooms": 1,
+     "size_ping": 20,
+     "main_ping": 12.4,
+     "balcony_ping": 1.0,
+     "count": 42,
+     "plan": null,
+     "layout": "r1w",
+     "facing": "坐北朝南"
+    },
+    {
+     "id": "c07-2A",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 25,
+     "main_ping": 16.0,
+     "balcony_ping": 1.2,
+     "count": 42,
+     "plan": null,
+     "layout": "r2",
+     "facing": "坐東朝西"
+    },
+    {
+     "id": "c07-2B",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 29,
+     "main_ping": 18.6,
+     "balcony_ping": 1.5,
+     "count": 42,
+     "plan": null,
+     "layout": "r2w",
+     "facing": "坐北朝南"
+    },
+    {
+     "id": "c07-3A",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 36,
+     "main_ping": 23.4,
+     "balcony_ping": 1.8,
+     "count": 42,
+     "plan": null,
+     "layout": "r3",
+     "facing": "坐東朝西"
+    },
+    {
+     "id": "c07-3B",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 48,
+     "main_ping": 31.2,
+     "balcony_ping": 2.4,
+     "count": 42,
+     "plan": null,
+     "layout": "r3w",
+     "facing": "坐西朝東"
+    }
+   ],
+   "permit": {
+    "build_no": "106中都建字第06397號",
+    "build_date": "106-04-15",
+    "use_no": "109中都使字第01353號",
+    "use_date": "109-10-08",
+    "zoning": "第二種住宅區",
+    "site_area_m2": 5083.4,
+    "coverage_pct": 34.9,
+    "far_pct": 400,
+    "use": "集合住宅",
+    "floor_area_m2": 18300.2
+   },
+   "amenities": [
+    "共享工作室",
+    "兒童遊戲室",
+    "洗衣間",
+    "屋頂 BBQ 平台",
+    "空中花園",
+    "宴會廳",
+    "交誼廳",
+    "瑜珈教室",
+    "包裹收發室",
+    "寵物美容室"
+   ],
+   "materials": {
+    "exterior": "玻璃帷幕＋金屬板",
+    "window": "國產氣密隔音窗",
+    "kitchen": "林內三機＋人造石檯面",
+    "bath": "TOTO 衛浴",
+    "flooring": "60×120 拋光石英磚",
+    "doors": "防火防盜大門＋電子鎖"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "太平國小",
+      "kind": "國小學區",
+      "dist_m": 659
+     },
+     {
+      "name": "太平國中",
+      "kind": "國中學區",
+      "dist_m": 510
+     }
+    ],
+    "transit": [
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 85
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 3753
+     }
+    ],
+    "shopping": [
+     {
+      "name": "太平買家",
+      "kind": "商圈",
+      "dist_m": 632
+     },
+     {
+      "name": "家樂福太平店",
+      "kind": "商圈",
+      "dist_m": 1746
+     }
+    ],
+    "parks": [
+     {
+      "name": "太平買菸場公園",
+      "kind": "公園",
+      "dist_m": 262
+     },
+     {
+      "name": "廍子公園",
+      "kind": "公園",
+      "dist_m": 742
+     }
+    ],
+    "medical": [
+     {
+      "name": "長安醫院",
+      "kind": "醫院",
+      "dist_m": 2154
+     }
+    ],
+    "markets": [
+     {
+      "name": "太平市場",
+      "kind": "市場",
+      "dist_m": 778
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "低潛勢",
+    "flood": "無淹水潛勢",
+    "fault_km": 3.2,
+    "fault_name": "車籠埔斷層",
+    "avoid": [
+     {
+      "name": "高壓電塔",
+      "dist_m": 420
+     },
+     {
+      "name": "加油站",
+      "dist_m": 332
+     }
+    ],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（106中都建字第06397號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照存根",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "坡道平面車位",
+    "屋齡 5 年內",
+    "太平國小學區"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "c08",
+   "name": "沐川・大里時光",
+   "sample": true,
+   "builder": "沐川建設",
+   "contractor": "大河營造",
+   "architect": "黃立安建築師事務所",
+   "district": "大里區",
+   "address": "臺中市大里區德芳南路",
+   "lat": 24.1004,
+   "lng": 120.6857,
+   "type": "大樓",
+   "status": "成屋",
+   "completed": 2016,
+   "structure": "RC",
+   "seismic": "一般",
+   "floors_above": 15,
+   "floors_below": 3,
+   "towers": [
+    {
+     "name": "A棟",
+     "floors": 15,
+     "units_per_floor": 6,
+     "elevators": 2,
+     "w": 38,
+     "d": 22,
+     "x": 0.0,
+     "z": 0
+    }
+   ],
+   "households": 84,
+   "public_ratio": 35.3,
+   "mgmt_fee": 70,
+   "property_mgmt": "新光保全物業",
+   "parking": {
+    "count": 96,
+    "type": "坡道平面",
+    "price_wan": 250
+   },
+   "price": {
+    "unit_low": 25,
+    "unit_high": 30,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 24.2
+     },
+     {
+      "q": "2025Q1",
+      "unit": 24.2
+     },
+     {
+      "q": "2025Q2",
+      "unit": 24.1
+     },
+     {
+      "q": "2025Q3",
+      "unit": 24.5
+     },
+     {
+      "q": "2025Q4",
+      "unit": 24.4
+     },
+     {
+      "q": "2026Q1",
+      "unit": 24.2
+     },
+     {
+      "q": "2026Q2",
+      "unit": 24.7
+     },
+     {
+      "q": "2026Q3",
+      "unit": 25.1
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": 4,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 48,
+      "unit_price": 29.4,
+      "total_wan": 1337,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 6,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 32,
+      "unit_price": 26.4,
+      "total_wan": 873,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 11,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 48,
+      "unit_price": 25.1,
+      "total_wan": 1168,
+      "parking": true
+     },
+     {
+      "date": "2026-07",
+      "floor": 8,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 48,
+      "unit_price": 28.1,
+      "total_wan": 1366,
+      "parking": true
+     },
+     {
+      "date": "2026-06",
+      "floor": 14,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 32,
+      "unit_price": 26.4,
+      "total_wan": 953,
+      "parking": true
+     },
+     {
+      "date": "2026-05",
+      "floor": 11,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 48,
+      "unit_price": 29.7,
+      "total_wan": 1429,
+      "parking": true
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c08-2A",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 27,
+     "main_ping": 17.3,
+     "balcony_ping": 1.4,
+     "count": 21,
+     "plan": null,
+     "layout": "r2",
+     "facing": "坐東朝西"
+    },
+    {
+     "id": "c08-2B",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 32,
+     "main_ping": 20.5,
+     "balcony_ping": 1.6,
+     "count": 21,
+     "plan": null,
+     "layout": "r2w",
+     "facing": "坐東朝西"
+    },
+    {
+     "id": "c08-3A",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 34,
+     "main_ping": 22.1,
+     "balcony_ping": 1.7,
+     "count": 21,
+     "plan": null,
+     "layout": "r3",
+     "facing": "坐東朝西"
+    },
+    {
+     "id": "c08-3B",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 48,
+     "main_ping": 31.2,
+     "balcony_ping": 2.4,
+     "count": 21,
+     "plan": null,
+     "layout": "r3w",
+     "facing": "坐北朝南"
+    }
+   ],
+   "permit": {
+    "build_no": "102中都建字第05418號",
+    "build_date": "102-03-16",
+    "use_no": "105中都使字第07497號",
+    "use_date": "105-12-07",
+    "zoning": "第一種住宅區",
+    "site_area_m2": 4833.1,
+    "coverage_pct": 40.8,
+    "far_pct": 280,
+    "use": "集合住宅",
+    "floor_area_m2": 17399.2
+   },
+   "amenities": [
+    "視聽室",
+    "空中花園",
+    "戶外游泳池",
+    "屋頂 BBQ 平台",
+    "閱覽室",
+    "共享工作室",
+    "洗衣間",
+    "包裹收發室",
+    "汽車充電車位"
+   ],
+   "materials": {
+    "exterior": "玻璃帷幕＋金屬板",
+    "window": "YKK 氣密窗",
+    "kitchen": "林內三機＋人造石檯面",
+    "bath": "HCG 衛浴",
+    "flooring": "木紋石英磚",
+    "doors": "防火防盜大門"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "大里國小",
+      "kind": "國小學區",
+      "dist_m": 485
+     },
+     {
+      "name": "大里國中",
+      "kind": "國中學區",
+      "dist_m": 668
+     }
+    ],
+    "transit": [
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 143
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 3189
+     }
+    ],
+    "shopping": [
+     {
+      "name": "大里大買家",
+      "kind": "商圈",
+      "dist_m": 1956
+     },
+     {
+      "name": "家樂福大里店",
+      "kind": "商圈",
+      "dist_m": 645
+     }
+    ],
+    "parks": [
+     {
+      "name": "大里運動公園",
+      "kind": "公園",
+      "dist_m": 907
+     }
+    ],
+    "medical": [
+     {
+      "name": "仁愛醫院大里院區",
+      "kind": "醫院",
+      "dist_m": 3094
+     }
+    ],
+    "markets": [
+     {
+      "name": "大里市場",
+      "kind": "市場",
+      "dist_m": 1647
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "中潛勢",
+    "flood": "24 小時 500mm 情境：0.3–0.5 公尺",
+    "fault_km": 4.1,
+    "fault_name": "車籠埔斷層",
+    "avoid": [
+     {
+      "name": "高壓電塔",
+      "dist_m": 420
+     },
+     {
+      "name": "加油站",
+      "dist_m": 224
+     }
+    ],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（102中都建字第05418號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照存根",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "坡道平面車位",
+    "大里國小學區"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "c09",
+   "name": "嶺序・北區學院",
+   "sample": true,
+   "builder": "嶺序建設",
+   "contractor": "宏昌營造",
+   "architect": "吳承翰建築師事務所",
+   "district": "北區",
+   "address": "臺中市北區學士路與雙十路口",
+   "lat": 24.1589,
+   "lng": 120.6831,
+   "type": "大樓",
+   "status": "成屋",
+   "completed": 2008,
+   "structure": "RC",
+   "seismic": "一般",
+   "floors_above": 14,
+   "floors_below": 3,
+   "towers": [
+    {
+     "name": "A棟",
+     "floors": 14,
+     "units_per_floor": 8,
+     "elevators": 3,
+     "w": 38,
+     "d": 22,
+     "x": 0.0,
+     "z": 0
+    }
+   ],
+   "households": 104,
+   "public_ratio": 32.8,
+   "mgmt_fee": 90,
+   "property_mgmt": "台灣永慶物業",
+   "parking": {
+    "count": 119,
+    "type": "機械",
+    "price_wan": 150
+   },
+   "price": {
+    "unit_low": 30,
+    "unit_high": 36,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 28.2
+     },
+     {
+      "q": "2025Q1",
+      "unit": 28.8
+     },
+     {
+      "q": "2025Q2",
+      "unit": 29.5
+     },
+     {
+      "q": "2025Q3",
+      "unit": 30.4
+     },
+     {
+      "q": "2025Q4",
+      "unit": 30.3
+     },
+     {
+      "q": "2026Q1",
+      "unit": 31.0
+     },
+     {
+      "q": "2026Q2",
+      "unit": 31.6
+     },
+     {
+      "q": "2026Q3",
+      "unit": 31.5
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": 10,
+      "unit_type": "1房1廳1衛",
+      "size_ping": 18,
+      "unit_price": 31.3,
+      "total_wan": 642,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 10,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 28,
+      "unit_price": 31.0,
+      "total_wan": 972,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 5,
+      "unit_type": "1房1廳1衛",
+      "size_ping": 18,
+      "unit_price": 34.2,
+      "total_wan": 765,
+      "parking": true
+     },
+     {
+      "date": "2026-07",
+      "floor": 8,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 28,
+      "unit_price": 32.5,
+      "total_wan": 966,
+      "parking": true
+     },
+     {
+      "date": "2026-06",
+      "floor": 4,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 27,
+      "unit_price": 34.3,
+      "total_wan": 939,
+      "parking": true
+     },
+     {
+      "date": "2026-05",
+      "floor": 11,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 27,
+      "unit_price": 32.8,
+      "total_wan": 986,
+      "parking": true
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c09-1A",
+     "label": "1房1廳1衛",
+     "rooms": 1,
+     "size_ping": 16,
+     "main_ping": 9.9,
+     "balcony_ping": 0.8,
+     "count": 17,
+     "plan": null,
+     "layout": "r1",
+     "facing": "坐西朝東"
+    },
+    {
+     "id": "c09-1B",
+     "label": "1房1廳1衛",
+     "rooms": 1,
+     "size_ping": 18,
+     "main_ping": 11.2,
+     "balcony_ping": 0.9,
+     "count": 17,
+     "plan": null,
+     "layout": "r1w",
+     "facing": "坐東朝西"
+    },
+    {
+     "id": "c09-2A",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 27,
+     "main_ping": 17.3,
+     "balcony_ping": 1.4,
+     "count": 17,
+     "plan": null,
+     "layout": "r2",
+     "facing": "坐西朝東"
+    },
+    {
+     "id": "c09-2B",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 28,
+     "main_ping": 17.9,
+     "balcony_ping": 1.4,
+     "count": 17,
+     "plan": null,
+     "layout": "r2w",
+     "facing": "坐西朝東"
+    },
+    {
+     "id": "c09-3A",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 39,
+     "main_ping": 25.4,
+     "balcony_ping": 2.0,
+     "count": 17,
+     "plan": null,
+     "layout": "r3",
+     "facing": "坐東朝西"
+    },
+    {
+     "id": "c09-3B",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 42,
+     "main_ping": 27.3,
+     "balcony_ping": 2.1,
+     "count": 17,
+     "plan": null,
+     "layout": "r3w",
+     "facing": "坐西朝東"
+    }
+   ],
+   "permit": {
+    "build_no": "94中都建字第07086號",
+    "build_date": "94-07-12",
+    "use_no": "97中都使字第08210號",
+    "use_date": "97-10-04",
+    "zoning": "第一種住宅區",
+    "site_area_m2": 2873.9,
+    "coverage_pct": 35.1,
+    "far_pct": 280,
+    "use": "集合住宅",
+    "floor_area_m2": 10346.0
+   },
+   "amenities": [
+    "健身房",
+    "兒童遊戲室",
+    "視聽室",
+    "汽車充電車位",
+    "空中花園",
+    "瑜珈教室",
+    "洗衣間",
+    "戶外游泳池"
+   ],
+   "materials": {
+    "exterior": "丁掛磚＋塗料",
+    "window": "國產氣密隔音窗",
+    "kitchen": "林內三機＋人造石檯面",
+    "bath": "KOHLER 衛浴",
+    "flooring": "木紋石英磚",
+    "doors": "防火防盜大門"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "中華國小",
+      "kind": "國小學區",
+      "dist_m": 261
+     },
+     {
+      "name": "雙十國中",
+      "kind": "國中學區",
+      "dist_m": 1482
+     }
+    ],
+    "transit": [
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 120
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 3846
+     }
+    ],
+    "shopping": [
+     {
+      "name": "一中街商圈",
+      "kind": "商圈",
+      "dist_m": 1628
+     },
+     {
+      "name": "中友百貨",
+      "kind": "商圈",
+      "dist_m": 1353
+     }
+    ],
+    "parks": [
+     {
+      "name": "中正公園",
+      "kind": "公園",
+      "dist_m": 656
+     },
+     {
+      "name": "中山公園",
+      "kind": "公園",
+      "dist_m": 1073
+     }
+    ],
+    "medical": [
+     {
+      "name": "中國醫藥大學附設醫院",
+      "kind": "醫院",
+      "dist_m": 3709
+     }
+    ],
+    "markets": [
+     {
+      "name": "建國市場",
+      "kind": "市場",
+      "dist_m": 527
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "低潛勢",
+    "flood": "無淹水潛勢",
+    "fault_km": 9.0,
+    "fault_name": "車籠埔斷層",
+    "avoid": [],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（94中都建字第07086號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照存根",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "中華國小學區"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "c10",
+   "name": "栩和・烏日高鐵站前",
+   "sample": true,
+   "builder": "栩和建設",
+   "contractor": "宏昌營造",
+   "architect": "陳柏宇建築師事務所",
+   "district": "烏日區",
+   "address": "臺中市烏日區站區二路",
+   "lat": 24.1095,
+   "lng": 120.6168,
+   "type": "大樓",
+   "status": "新成屋",
+   "completed": 2026,
+   "structure": "RC",
+   "seismic": "制震",
+   "floors_above": 23,
+   "floors_below": 4,
+   "towers": [
+    {
+     "name": "A棟",
+     "floors": 23,
+     "units_per_floor": 6,
+     "elevators": 3,
+     "w": 38,
+     "d": 22,
+     "x": -27.0,
+     "z": 0
+    },
+    {
+     "name": "B棟",
+     "floors": 23,
+     "units_per_floor": 6,
+     "elevators": 3,
+     "w": 38,
+     "d": 22,
+     "x": 27.0,
+     "z": 8
+    }
+   ],
+   "households": 264,
+   "public_ratio": 34.3,
+   "mgmt_fee": 100,
+   "property_mgmt": "台灣永慶物業",
+   "parking": {
+    "count": 303,
+    "type": "坡道平面",
+    "price_wan": 320
+   },
+   "price": {
+    "unit_low": 38,
+    "unit_high": 45,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 35.5
+     },
+     {
+      "q": "2025Q1",
+      "unit": 35.5
+     },
+     {
+      "q": "2025Q2",
+      "unit": 36.6
+     },
+     {
+      "q": "2025Q3",
+      "unit": 36.6
+     },
+     {
+      "q": "2025Q4",
+      "unit": 37.5
+     },
+     {
+      "q": "2026Q1",
+      "unit": 38.5
+     },
+     {
+      "q": "2026Q2",
+      "unit": 39.5
+     },
+     {
+      "q": "2026Q3",
+      "unit": 40.4
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": 15,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 35,
+      "unit_price": 39.0,
+      "total_wan": 1379,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 13,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 42,
+      "unit_price": 38.6,
+      "total_wan": 1509,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 16,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 31,
+      "unit_price": 44.3,
+      "total_wan": 1346,
+      "parking": true
+     },
+     {
+      "date": "2026-07",
+      "floor": 5,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 24,
+      "unit_price": 43.6,
+      "total_wan": 1038,
+      "parking": true
+     },
+     {
+      "date": "2026-06",
+      "floor": 5,
+      "unit_type": "2房2廳1衛",
+      "size_ping": 31,
+      "unit_price": 39.9,
+      "total_wan": 1194,
+      "parking": true
+     },
+     {
+      "date": "2026-05",
+      "floor": 3,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 42,
+      "unit_price": 40.4,
+      "total_wan": 1651,
+      "parking": true
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c10-2A",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 24,
+     "main_ping": 15.4,
+     "balcony_ping": 1.2,
+     "count": 66,
+     "plan": null,
+     "layout": "r2",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c10-2B",
+     "label": "2房2廳1衛",
+     "rooms": 2,
+     "size_ping": 31,
+     "main_ping": 19.8,
+     "balcony_ping": 1.6,
+     "count": 66,
+     "plan": null,
+     "layout": "r2w",
+     "facing": "坐南朝北"
+    },
+    {
+     "id": "c10-3A",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 35,
+     "main_ping": 22.8,
+     "balcony_ping": 1.8,
+     "count": 66,
+     "plan": null,
+     "layout": "r3",
+     "facing": "坐東朝西"
+    },
+    {
+     "id": "c10-3B",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 42,
+     "main_ping": 27.3,
+     "balcony_ping": 2.1,
+     "count": 66,
+     "plan": null,
+     "layout": "r3w",
+     "facing": "坐北朝南"
+    }
+   ],
+   "permit": {
+    "build_no": "112中都建字第03207號",
+    "build_date": "112-06-11",
+    "use_no": "115中都使字第09040號",
+    "use_date": "115-10-07",
+    "zoning": "第一種住宅區",
+    "site_area_m2": 5688.4,
+    "coverage_pct": 45.1,
+    "far_pct": 225,
+    "use": "集合住宅",
+    "floor_area_m2": 20478.2
+   },
+   "amenities": [
+    "健身房",
+    "交誼廳",
+    "共享工作室",
+    "空中花園",
+    "屋頂 BBQ 平台",
+    "汽車充電車位",
+    "24 小時保全",
+    "閱覽室",
+    "宴會廳",
+    "視聽室",
+    "KTV 室"
+   ],
+   "materials": {
+    "exterior": "二丁掛磁磚＋石材",
+    "window": "LIXIL 防颱氣密窗",
+    "kitchen": "林內三機＋人造石檯面",
+    "bath": "HCG 衛浴",
+    "flooring": "木紋石英磚",
+    "doors": "防火防盜大門＋電子鎖"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "喀哩國小",
+      "kind": "國小學區",
+      "dist_m": 511
+     },
+     {
+      "name": "烏日國中",
+      "kind": "國中學區",
+      "dist_m": 1028
+     }
+    ],
+    "transit": [
+     {
+      "name": "高鐵台中站",
+      "kind": "軌道",
+      "dist_m": 336
+     },
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 61
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 3934
+     }
+    ],
+    "shopping": [
+     {
+      "name": "三井 Outlet 台中港（車程）",
+      "kind": "商圈",
+      "dist_m": 1205
+     },
+     {
+      "name": "台中高鐵站商圈",
+      "kind": "商圈",
+      "dist_m": 1699
+     }
+    ],
+    "parks": [
+     {
+      "name": "烏日溪南公園",
+      "kind": "公園",
+      "dist_m": 1479
+     }
+    ],
+    "medical": [
+     {
+      "name": "澄清醫院（車程）",
+      "kind": "醫院",
+      "dist_m": 1405
+     }
+    ],
+    "markets": [
+     {
+      "name": "烏日市場",
+      "kind": "市場",
+      "dist_m": 563
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "中潛勢",
+    "flood": "24 小時 500mm 情境：0.3–0.5 公尺",
+    "fault_km": 7.5,
+    "fault_name": "車籠埔斷層",
+    "avoid": [
+     {
+      "name": "高鐵／台鐵軌道",
+      "dist_m": 350
+     }
+    ],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（112中都建字第03207號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照存根",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "距高鐵台中站 步行可達",
+    "制震結構",
+    "坡道平面車位",
+    "屋齡 5 年內",
+    "喀哩國小學區"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "c11",
+   "name": "禾岫・南區學府",
+   "sample": true,
+   "builder": "禾岫建設",
+   "contractor": "國聚營造",
+   "architect": "黃立安建築師事務所",
+   "district": "南區",
+   "address": "臺中市南區建國南路一段",
+   "lat": 24.1218,
+   "lng": 120.661,
+   "type": "透天",
+   "status": "成屋",
+   "completed": 2015,
+   "structure": "RC",
+   "seismic": "一般",
+   "floors_above": 4,
+   "floors_below": 1,
+   "towers": [
+    {
+     "name": "1號",
+     "floors": 4,
+     "units_per_floor": 1,
+     "elevators": 0,
+     "w": 6,
+     "d": 14,
+     "x": -23.099999999999998,
+     "z": 0
+    },
+    {
+     "name": "2號",
+     "floors": 4,
+     "units_per_floor": 1,
+     "elevators": 0,
+     "w": 6,
+     "d": 14,
+     "x": -16.5,
+     "z": 0
+    },
+    {
+     "name": "3號",
+     "floors": 4,
+     "units_per_floor": 1,
+     "elevators": 0,
+     "w": 6,
+     "d": 14,
+     "x": -9.899999999999999,
+     "z": 0
+    },
+    {
+     "name": "4號",
+     "floors": 4,
+     "units_per_floor": 1,
+     "elevators": 0,
+     "w": 6,
+     "d": 14,
+     "x": -3.3,
+     "z": 0
+    },
+    {
+     "name": "5號",
+     "floors": 4,
+     "units_per_floor": 1,
+     "elevators": 0,
+     "w": 6,
+     "d": 14,
+     "x": 3.3,
+     "z": 0
+    },
+    {
+     "name": "6號",
+     "floors": 4,
+     "units_per_floor": 1,
+     "elevators": 0,
+     "w": 6,
+     "d": 14,
+     "x": 9.899999999999999,
+     "z": 0
+    },
+    {
+     "name": "7號",
+     "floors": 4,
+     "units_per_floor": 1,
+     "elevators": 0,
+     "w": 6,
+     "d": 14,
+     "x": 16.5,
+     "z": 0
+    },
+    {
+     "name": "8號",
+     "floors": 4,
+     "units_per_floor": 1,
+     "elevators": 0,
+     "w": 6,
+     "d": 14,
+     "x": 23.099999999999998,
+     "z": 0
+    }
+   ],
+   "households": 8,
+   "public_ratio": 0,
+   "mgmt_fee": 0,
+   "property_mgmt": "無（自主管理）",
+   "parking": {
+    "count": 8,
+    "type": "自有車庫",
+    "price_wan": 0
+   },
+   "price": {
+    "unit_low": 28,
+    "unit_high": 33,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 26.6
+     },
+     {
+      "q": "2025Q1",
+      "unit": 26.6
+     },
+     {
+      "q": "2025Q2",
+      "unit": 26.5
+     },
+     {
+      "q": "2025Q3",
+      "unit": 26.4
+     },
+     {
+      "q": "2025Q4",
+      "unit": 26.2
+     },
+     {
+      "q": "2026Q1",
+      "unit": 26.2
+     },
+     {
+      "q": "2026Q2",
+      "unit": 26.3
+     },
+     {
+      "q": "2026Q3",
+      "unit": 26.4
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": "全棟",
+      "unit_type": "4房2廳2衛",
+      "size_ping": 58,
+      "unit_price": 29.4,
+      "total_wan": 1398,
+      "parking": false
+     },
+     {
+      "date": "2026-08",
+      "floor": "全棟",
+      "unit_type": "4房2廳2衛",
+      "size_ping": 58,
+      "unit_price": 29.4,
+      "total_wan": 1398,
+      "parking": false
+     },
+     {
+      "date": "2026-08",
+      "floor": "全棟",
+      "unit_type": "4房2廳2衛",
+      "size_ping": 58,
+      "unit_price": 33.0,
+      "total_wan": 1569,
+      "parking": false
+     },
+     {
+      "date": "2026-07",
+      "floor": "全棟",
+      "unit_type": "4房2廳2衛",
+      "size_ping": 58,
+      "unit_price": 28.1,
+      "total_wan": 1336,
+      "parking": false
+     },
+     {
+      "date": "2026-06",
+      "floor": "全棟",
+      "unit_type": "4房2廳2衛",
+      "size_ping": 58,
+      "unit_price": 30.6,
+      "total_wan": 1455,
+      "parking": false
+     },
+     {
+      "date": "2026-05",
+      "floor": "全棟",
+      "unit_type": "4房2廳2衛",
+      "size_ping": 58,
+      "unit_price": 32.7,
+      "total_wan": 1555,
+      "parking": false
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c11-4A",
+     "label": "4房2廳2衛",
+     "rooms": 4,
+     "size_ping": 58,
+     "main_ping": 53.4,
+     "balcony_ping": 2.9,
+     "count": 4,
+     "plan": null,
+     "layout": "r4",
+     "facing": "坐東朝西"
+    },
+    {
+     "id": "c11-4B",
+     "label": "4房2廳2衛",
+     "rooms": 4,
+     "size_ping": 67,
+     "main_ping": 61.6,
+     "balcony_ping": 3.4,
+     "count": 4,
+     "plan": null,
+     "layout": "r4w",
+     "facing": "坐北朝南"
+    }
+   ],
+   "permit": {
+    "build_no": "101中都建字第01020號",
+    "build_date": "101-04-12",
+    "use_no": "104中都使字第09331號",
+    "use_date": "104-11-05",
+    "zoning": "第三種住宅區",
+    "site_area_m2": 980,
+    "coverage_pct": 58.0,
+    "far_pct": 200,
+    "use": "住宅",
+    "floor_area_m2": 2156.0
+   },
+   "amenities": [],
+   "materials": {
+    "exterior": "花崗石＋鋁格柵",
+    "window": "YKK 氣密窗",
+    "kitchen": "林內三機＋人造石檯面",
+    "bath": "KOHLER 衛浴",
+    "flooring": "超耐磨木地板（臥室）＋石英磚",
+    "doors": "防火防盜大門"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "樹義國小",
+      "kind": "國小學區",
+      "dist_m": 620
+     },
+     {
+      "name": "四育國中",
+      "kind": "國中學區",
+      "dist_m": 1012
+     }
+    ],
+    "transit": [
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 87
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 2455
+     }
+    ],
+    "shopping": [
+     {
+      "name": "忠孝路夜市",
+      "kind": "商圈",
+      "dist_m": 2582
+     },
+     {
+      "name": "興大商圈",
+      "kind": "商圈",
+      "dist_m": 1023
+     }
+    ],
+    "parks": [
+     {
+      "name": "南區樹義公園",
+      "kind": "公園",
+      "dist_m": 949
+     },
+     {
+      "name": "興大康橋水岸",
+      "kind": "公園",
+      "dist_m": 550
+     }
+    ],
+    "medical": [
+     {
+      "name": "中山醫學大學附設醫院",
+      "kind": "醫院",
+      "dist_m": 1061
+     }
+    ],
+    "markets": [
+     {
+      "name": "忠孝市場",
+      "kind": "市場",
+      "dist_m": 1117
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "低潛勢",
+    "flood": "無淹水潛勢",
+    "fault_km": 9.0,
+    "fault_name": "車籠埔斷層",
+    "avoid": [],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（101中都建字第01020號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照存根",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "樹義國小學區"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "c12",
+   "name": "澄峰・七期天際",
+   "sample": true,
+   "builder": "澄峰開發",
+   "contractor": "新泰營造",
+   "architect": "林昱廷建築師事務所",
+   "district": "西屯區",
+   "address": "臺中市西屯區河南路三段與市政路口",
+   "lat": 24.1612,
+   "lng": 120.6436,
+   "type": "大樓",
+   "status": "預售",
+   "completed": 2028,
+   "structure": "SC",
+   "seismic": "隔震",
+   "floors_above": 38,
+   "floors_below": 6,
+   "towers": [
+    {
+     "name": "A棟",
+     "floors": 38,
+     "units_per_floor": 3,
+     "elevators": 4,
+     "w": 22,
+     "d": 18,
+     "x": 0.0,
+     "z": 0
+    }
+   ],
+   "households": 111,
+   "public_ratio": 33.4,
+   "mgmt_fee": 70,
+   "property_mgmt": "中興保全物業",
+   "parking": {
+    "count": 127,
+    "type": "坡道平面",
+    "price_wan": 220
+   },
+   "price": {
+    "unit_low": 95,
+    "unit_high": 120,
+    "trend": [
+     {
+      "q": "2024Q4",
+      "unit": 93.0
+     },
+     {
+      "q": "2025Q1",
+      "unit": 95.5
+     },
+     {
+      "q": "2025Q2",
+      "unit": 97.6
+     },
+     {
+      "q": "2025Q3",
+      "unit": 99.4
+     },
+     {
+      "q": "2025Q4",
+      "unit": 100.2
+     },
+     {
+      "q": "2026Q1",
+      "unit": 100.8
+     },
+     {
+      "q": "2026Q2",
+      "unit": 100.0
+     },
+     {
+      "q": "2026Q3",
+      "unit": 99.6
+     }
+    ],
+    "deals": [
+     {
+      "date": "2026-09",
+      "floor": 19,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 35,
+      "unit_price": 105.8,
+      "total_wan": 3216,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 27,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 35,
+      "unit_price": 116.8,
+      "total_wan": 3612,
+      "parking": true
+     },
+     {
+      "date": "2026-08",
+      "floor": 18,
+      "unit_type": "4房2廳2衛",
+      "size_ping": 60,
+      "unit_price": 112.3,
+      "total_wan": 5705,
+      "parking": true
+     },
+     {
+      "date": "2026-07",
+      "floor": 14,
+      "unit_type": "4房2廳2衛",
+      "size_ping": 67,
+      "unit_price": 98.9,
+      "total_wan": 5654,
+      "parking": true
+     },
+     {
+      "date": "2026-06",
+      "floor": 19,
+      "unit_type": "3房2廳2衛",
+      "size_ping": 35,
+      "unit_price": 104.1,
+      "total_wan": 3208,
+      "parking": true
+     },
+     {
+      "date": "2026-05",
+      "floor": 18,
+      "unit_type": "4房2廳2衛",
+      "size_ping": 60,
+      "unit_price": 95.9,
+      "total_wan": 4938,
+      "parking": true
+     }
+    ],
+    "note": "單價已扣除車位；預售為開價或已揭露成交行情。"
+   },
+   "units": [
+    {
+     "id": "c12-3A",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 35,
+     "main_ping": 22.8,
+     "balcony_ping": 1.8,
+     "count": 27,
+     "plan": null,
+     "layout": "r3",
+     "facing": "坐西朝東"
+    },
+    {
+     "id": "c12-3B",
+     "label": "3房2廳2衛",
+     "rooms": 3,
+     "size_ping": 47,
+     "main_ping": 30.6,
+     "balcony_ping": 2.4,
+     "count": 27,
+     "plan": null,
+     "layout": "r3w",
+     "facing": "坐西朝東"
+    },
+    {
+     "id": "c12-4A",
+     "label": "4房2廳2衛",
+     "rooms": 4,
+     "size_ping": 60,
+     "main_ping": 39.6,
+     "balcony_ping": 3.0,
+     "count": 27,
+     "plan": null,
+     "layout": "r4",
+     "facing": "坐東朝西"
+    },
+    {
+     "id": "c12-4B",
+     "label": "4房2廳2衛",
+     "rooms": 4,
+     "size_ping": 67,
+     "main_ping": 44.2,
+     "balcony_ping": 3.4,
+     "count": 27,
+     "plan": null,
+     "layout": "r4w",
+     "facing": "坐東朝西"
+    }
+   ],
+   "permit": {
+    "build_no": "112中都建字第02212號",
+    "build_date": "112-05-14",
+    "use_no": "尚未取得",
+    "use_date": "—",
+    "zoning": "第五種住宅區（市地重劃區）",
+    "site_area_m2": 2825.6,
+    "coverage_pct": 32.2,
+    "far_pct": 225,
+    "use": "集合住宅",
+    "floor_area_m2": 10172.2
+   },
+   "amenities": [
+    "24 小時保全",
+    "視聽室",
+    "寵物美容室",
+    "屋頂 BBQ 平台",
+    "洗衣間",
+    "室內恆溫泳池",
+    "戶外游泳池",
+    "包裹收發室"
+   ],
+   "materials": {
+    "exterior": "二丁掛磁磚＋石材",
+    "window": "YKK 氣密窗",
+    "kitchen": "Panasonic 三機",
+    "bath": "KOHLER 衛浴",
+    "flooring": "60×120 拋光石英磚",
+    "doors": "防火防盜大門＋電子鎖"
+   },
+   "nearby": {
+    "schools": [
+     {
+      "name": "惠文國小",
+      "kind": "國小學區",
+      "dist_m": 279
+     },
+     {
+      "name": "福科國中",
+      "kind": "國中學區",
+      "dist_m": 645
+     }
+    ],
+    "transit": [
+     {
+      "name": "台中捷運綠線 市政府站",
+      "kind": "軌道",
+      "dist_m": 432
+     },
+     {
+      "name": "公車站（多線）",
+      "kind": "公車",
+      "dist_m": 239
+     },
+     {
+      "name": "國道1號／快速道路交流道",
+      "kind": "道路",
+      "dist_m": 2226
+     }
+    ],
+    "shopping": [
+     {
+      "name": "秀泰生活台中文心店",
+      "kind": "商圈",
+      "dist_m": 2048
+     },
+     {
+      "name": "新光三越台中中港店",
+      "kind": "商圈",
+      "dist_m": 1852
+     }
+    ],
+    "parks": [
+     {
+      "name": "惠文公園",
+      "kind": "公園",
+      "dist_m": 447
+     },
+     {
+      "name": "秋紅谷生態公園",
+      "kind": "公園",
+      "dist_m": 463
+     }
+    ],
+    "medical": [
+     {
+      "name": "中國醫藥大學附設醫院（台中分院）",
+      "kind": "醫院",
+      "dist_m": 1276
+     }
+    ],
+    "markets": [
+     {
+      "name": "黎明市場",
+      "kind": "市場",
+      "dist_m": 636
+     }
+    ]
+   },
+   "risks": {
+    "liquefaction": "低潛勢",
+    "flood": "無淹水潛勢",
+    "fault_km": 9.0,
+    "fault_name": "車籠埔斷層",
+    "avoid": [],
+    "sea_sand": "未列管",
+    "radiation": "未列管",
+    "stigma": "查無登錄（請另行查證）",
+    "notes": "以上為公開圖資比對結果，實際以政府最新公告與現場勘查為準。"
+   },
+   "docs": [
+    {
+     "kind": "建照存根",
+     "title": "建造執照存根（112中都建字第02212號）",
+     "file": null
+    },
+    {
+     "kind": "使照存根",
+     "title": "使用執照（尚未取得）",
+     "file": null
+    },
+    {
+     "kind": "格局圖",
+     "title": "各戶格局圖",
+     "file": null
+    },
+    {
+     "kind": "竣工圖",
+     "title": "竣工平面圖／立面圖",
+     "file": null
+    },
+    {
+     "kind": "公設清冊",
+     "title": "公共設施清冊與點交紀錄",
+     "file": null
+    },
+    {
+     "kind": "規約",
+     "title": "社區管理規約",
+     "file": null
+    },
+    {
+     "kind": "結構",
+     "title": "結構計算書摘要／耐震設計說明",
+     "file": null
+    },
+    {
+     "kind": "建材",
+     "title": "建材設備表",
+     "file": null
+    }
+   ],
+   "highlights": [
+    "距市政府站 步行可達",
+    "隔震結構",
+    "坡道平面車位",
+    "預售可客變",
+    "惠文國小學區"
+   ],
+   "updated": "2026-10-20"
+  }
+ ]
+}
