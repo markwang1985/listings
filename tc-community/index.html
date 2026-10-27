@@ -437,7 +437,7 @@ function towerPolys(c){
 function initMap(){
   if (!window.maplibregl){ fallbackMap(); return; }
   let done = false;
-  const timer = setTimeout(()=>{ if(!done){ done=true; try{map&&map.remove()}catch(e){} map=null; fallbackMap(); } }, 7000);
+  const timer = setTimeout(()=>{ if(!mapOk) fallbackMap(); }, 6000);
   try{
     map = new maplibregl.Map({container:"map",style:"https://tiles.openfreemap.org/styles/liberty",center:[120.665,24.15],zoom:12.4,pitch:55,bearing:-18,attributionControl:{compact:true},maxPitch:75});
   }catch(e){ clearTimeout(timer); fallbackMap(); return; }
@@ -445,6 +445,7 @@ function initMap(){
   map.on("error", ()=>{});
   map.on("load", () => {
     if (done) return; done = true; clearTimeout(timer); mapOk = true;
+    $("#map").hidden = false; $("#fallback").hidden = true; $("#mapNote").hidden = true; $("#b3d").hidden = false; map.resize();
     const st = map.getStyle();
     const has3d = st.layers.some(l => l.type === "fill-extrusion");
     if (!has3d && st.sources.openmaptiles){
@@ -480,9 +481,10 @@ function hot(id, on){
 const BB = {w:120.595,e:120.735,s:24.088,n:24.198};
 function proj(lat,lng){ return [ (lng-BB.w)/(BB.e-BB.w)*1000, (BB.n-lat)/(BB.n-BB.s)*880 ]; }
 function fallbackMap(){
+  if (mapOk) return;
   $("#map").hidden = true; $("#fallback").hidden = false; $("#b3d").hidden = true;
   const n = $("#mapNote"); n.hidden = false;
-  n.innerHTML = "目前環境無法載入線上圖資，先以示意圖標出社區位置。網頁放到貴公司網站後，這裡會自動顯示可旋轉的 3D 地圖（OpenFreeMap，免金鑰）。";
+  n.innerHTML = map ? "3D 地圖載入中，先以示意圖標出社區位置；載入完成會自動切換。" : "目前無法載入線上圖資，先以示意圖標出社區位置。";
   drawFallback(filtered());
 }
 function drawFallback(list){
