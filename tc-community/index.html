@@ -441,6 +441,7 @@ function initMap(){
   try{
     map = new maplibregl.Map({container:"map",style:"https://tiles.openfreemap.org/styles/liberty",center:[120.665,24.15],zoom:12.4,pitch:55,bearing:-18,attributionControl:{compact:true},maxPitch:75});
   }catch(e){ clearTimeout(timer); fallbackMap(); return; }
+  window.tcMap = map;
   map.addControl(new maplibregl.NavigationControl({visualizePitch:true}), "bottom-right");
   map.on("error", ()=>{});
   map.on("load", () => {
